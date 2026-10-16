@@ -1,0 +1,1020 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Han Il Gold Leaf</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="alternate" hreflang="ko" href="https://www.hanilgoldleaf.com/">
+<link rel="alternate" hreflang="en" href="https://www.hanilgoldleaf.com/en/">
+<meta name="description" content="Han Il Gold Leaf, founded in 1965, is Korea's first and largest gold leaf manufacturer. We make gold leaf, gold flakes and gold powder for pharmaceuticals, food additives, cosmetics, crafts and architecture.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Song+Myung&family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: 옻칠 바탕 위 금박 한 장 — 종이(한지) 면 위에 섹션을 펼치고, 규격은 실제 비율로 그린다 */
+:root {
+  --paper: #F5F4F0;
+  --surface: #FFFFFF;
+  --ink: #1C1813;
+  --ink-2: #5E574D;
+  --line: #DED8CC;
+  --gold: #9A7428;
+  --gold-hi: #D7B25A;
+  --gold-soft: #EFE4C8;
+  --lacquer: #17120E;
+  --lacquer-2: #241C15;
+  --on-lacquer: #F1EBDD;
+  --on-lacquer-2: #B9AE9A;
+  --f-display: "Song Myung", "Nanum Myeongjo", "AppleMyungjo", serif;
+  --f-body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --wrap: 1180px;
+  --r: 4px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #110E0B; --surface: #1A1612; --ink: #EEE7D9; --ink-2: #A99F8F; --line: #2F2922;
+    --gold: #D6B05C; --gold-hi: #E9C978; --gold-soft: #2A2216;
+    --lacquer: #0B0907; --lacquer-2: #1A140F; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #110E0B; --surface: #1A1612; --ink: #EEE7D9; --ink-2: #A99F8F; --line: #2F2922;
+  --gold: #D6B05C; --gold-hi: #E9C978; --gold-soft: #2A2216;
+  --lacquer: #0B0907; --lacquer-2: #1A140F; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--f-body); font-size: 16px; line-height: 1.7;
+  word-break: keep-all; overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 3px; }
+h1, h2, h3 { font-weight: 400; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+
+.wrap {
+  max-width: var(--wrap); margin: 0 auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+.eyebrow {
+  font-family: var(--f-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--gold);
+}
+.sec { padding-block: clamp(64px, 10vw, 120px); }
+.sec-head { display: grid; gap: 14px; margin-bottom: clamp(32px, 5vw, 56px); max-width: 640px; }
+.sec-head h2 { font-family: var(--f-display); font-size: clamp(30px, 4.4vw, 46px); line-height: 1.25; }
+.sec-head p { color: var(--ink-2); }
+
+/* Header */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: color-mix(in srgb, var(--lacquer) 92%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  color: var(--on-lacquer); border-bottom: 1px solid rgba(215,178,90,.18);
+}
+.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+.brand { display: flex; align-items: center; text-decoration: none; min-width: 0; }
+.brand-logo { display: block; height: 30px; width: auto; max-width: 100%; }
+@media (max-width: 400px) { .brand-logo { height: 24px; } }
+.brand-name { font-family: var(--f-display); font-size: 21px; letter-spacing: .04em; line-height: 1; }
+.brand-en { font-family: var(--f-mono); font-size: 10px; letter-spacing: .2em; color: var(--on-lacquer-2); display: block; margin-top: 4px; }
+.nav { display: flex; align-items: center; gap: 22px; font-size: 15px; }
+.nav a { text-decoration: none; color: var(--on-lacquer-2); transition: color .2s; }
+.nav a:hover { color: var(--gold-hi); }
+.nav .shop { display: inline-flex; align-items: center; gap: 6px; color: var(--on-lacquer); border: 1px solid rgba(215,178,90,.45); padding: 7px 14px; border-radius: 999px; }
+.nav .shop:hover { color: var(--gold-hi); border-color: var(--gold-hi); }
+.ico { width: 18px; height: 18px; flex: none; }
+.nav .call {
+  color: var(--lacquer); background: var(--gold-hi); padding: 8px 16px; border-radius: 999px;
+  font-weight: 500; font-variant-numeric: tabular-nums;
+}
+.nav .call:hover { color: var(--lacquer); background: #E9C978; }
+.menu-btn {
+  display: none; background: none; border: 1px solid rgba(215,178,90,.4); color: var(--on-lacquer);
+  border-radius: var(--r); width: 44px; height: 40px; cursor: pointer; font: inherit;
+}
+.menu-btn span { display: block; width: 18px; height: 1.5px; background: currentColor; margin: 4px auto; transition: transform .2s, opacity .2s; }
+.top.open .menu-btn span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+.top.open .menu-btn span:nth-child(2) { opacity: 0; }
+.top.open .menu-btn span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+@media (max-width: 1060px) {
+  .menu-btn { display: block; }
+  .nav {
+    position: absolute; left: 0; right: 0; top: 64px; flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--lacquer); border-bottom: 1px solid rgba(215,178,90,.18);
+    padding: 8px max(20px, env(safe-area-inset-right, 0px)) 20px max(20px, env(safe-area-inset-left, 0px));
+    display: none;
+  }
+  .top.open .nav { display: flex; }
+  .nav a { padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.06); font-size: 17px; }
+  .nav .shop { margin-top: 16px; justify-content: center; padding: 13px; border-bottom: 1px solid rgba(215,178,90,.45); }
+  .nav .call { margin-top: 10px; text-align: center; border: 0; padding: 14px; }
+}
+
+/* Hero */
+.hero { background: var(--lacquer); color: var(--on-lacquer); position: relative; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hero::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background: linear-gradient(90deg, rgba(23,18,14,.95) 0%, rgba(23,18,14,.9) 42%, rgba(23,18,14,.45) 66%, rgba(23,18,14,.12) 100%);
+}
+.hero > * { position: relative; z-index: 2; }
+.hero > .hero-bg { position: absolute; z-index: 0; }
+.hero-cap {
+  position: absolute; right: max(20px, env(safe-area-inset-right, 0px)); bottom: 108px; z-index: 2;
+  font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; color: #F1EBDD;
+  background: rgba(23,18,14,.6); padding: 5px 10px; border-radius: 999px;
+}
+.hero .wrap {
+  position: relative; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+  align-items: center; gap: clamp(24px, 5vw, 72px); padding-block: clamp(56px, 9vw, 112px);
+}
+.hero-copy { display: grid; gap: 24px; min-width: 0; }
+.hero h1 { font-family: var(--f-display); font-size: clamp(40px, 6.6vw, 78px); line-height: 1.12; letter-spacing: -.01em; }
+.hero h1 em { font-style: normal; color: var(--gold-hi); }
+.hero-lede { color: var(--on-lacquer-2); font-size: clamp(16px, 1.6vw, 18px); max-width: 30em; }
+.hero-lede strong { color: var(--gold-hi); font-weight: 600; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 500;
+  padding: 14px 22px; border-radius: 999px; font-size: 15px; transition: background .2s, color .2s, border-color .2s;
+}
+.btn-gold { background: var(--gold-hi); color: #17120E; }
+.btn-gold:hover { background: #E9C978; }
+.btn-line { border: 1px solid rgba(241,235,221,.3); color: var(--on-lacquer); }
+.btn-line:hover { border-color: var(--gold-hi); color: var(--gold-hi); }
+.hero-copy { padding-block: clamp(24px, 6vw, 72px); }
+.facts { border-top: 1px solid rgba(215,178,90,.25); background: rgba(23,18,14,.88); }
+.facts ul {
+  list-style: none; margin: 0; padding: 28px 0; display: grid; grid-template-columns: repeat(4, max-content); justify-content: start; gap: 20px clamp(36px, 6vw, 88px);
+}
+.facts li { display: grid; gap: 4px; min-width: 0; }
+.facts .num { font-family: var(--f-display); font-size: clamp(26px, 3vw, 34px); color: var(--gold-hi); line-height: 1.2; font-variant-numeric: tabular-nums; }
+.facts .num small { font-size: .55em; margin-left: 2px; white-space: nowrap; }
+.facts .num { white-space: nowrap; }
+.hero .facts .wrap { display: block; }
+.facts .lbl { font-size: 13px; color: var(--on-lacquer-2); }
+@media (max-width: 820px) {
+  .hero .wrap { grid-template-columns: minmax(0, 1fr); }
+  .hero::before { background: linear-gradient(180deg, rgba(23,18,14,.35) 0%, rgba(23,18,14,.9) 32%, rgba(23,18,14,.95) 100%); }
+  .hero-copy { padding-top: 120px; padding-bottom: 8px; }
+  .hero-cap { top: 16px; bottom: auto; }
+  .facts ul { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 24px; }
+}
+
+/* Products */
+.cats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 28px); }
+.cat { display: grid; gap: 18px; align-content: start; min-width: 0; }
+.tex {
+  margin: 0; position: relative; aspect-ratio: 4 / 5; max-width: 100%; overflow: hidden; border-radius: var(--r);
+  background: var(--lacquer-2);
+}
+.tex canvas, .tex img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.tex img { object-fit: cover; background: #FFFFFF; }
+.tex .tag {
+  position: absolute; left: 14px; top: 14px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em;
+  color: #F1EBDD; background: rgba(23,18,14,.72); padding: 4px 9px; border-radius: 999px; z-index: 1;
+}
+.cat h3 { font-family: var(--f-display); font-size: 28px; display: flex; align-items: baseline; gap: 10px; }
+.cat h3 small { font-family: var(--f-mono); font-size: 12px; letter-spacing: .12em; color: var(--gold); }
+.cat p { color: var(--ink-2); font-size: 15px; }
+.cat ul { list-style: none; padding: 0; margin: 4px 0 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.cat li { font-size: 13px; padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--ink-2); }
+@media (max-width: 820px) {
+  .cats { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .tex { aspect-ratio: 16 / 10; }
+}
+
+/* Spec: sizes at true scale */
+.spec { margin-top: clamp(56px, 8vw, 96px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 10px clamp(24px, 4vw, 56px); align-items: start; }
+.spec-head { display: grid; gap: 10px; grid-column: 1; grid-row: 1; }
+.spec-left { grid-column: 1; grid-row: 2; min-width: 0; }
+.spec .scale { grid-column: 2; grid-row: 2; }
+.spec-lede { color: var(--ink-2); font-size: 15px; margin-bottom: 20px; }
+.spec-head h3 { font-family: var(--f-display); font-size: clamp(24px, 3vw, 32px); }
+.spec-head p { color: var(--ink-2); font-size: 15px; }
+.shot { margin: 0 0 24px; background: #FFFFFF; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.shot img { display: block; width: 100%; max-width: 100%; aspect-ratio: 16 / 8; height: auto; object-fit: contain; background: #FFFFFF; }
+.shot figcaption { font-size: 13px; color: #5E574D; padding: 10px 14px; border-top: 1px solid #ECE7DD; display: flex; justify-content: space-between; gap: 12px; white-space: nowrap; height: 42px; align-items: center; }
+.shot figcaption span { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+@media (hover: none), (max-width: 600px) { .shot figcaption { white-space: normal; height: auto; min-height: 42px; } }
+.shot figcaption span + span { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.tbl-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 460px; }
+th, td { text-align: left; padding: 12px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--f-mono); font-weight: 400; font-size: 11px; letter-spacing: .12em; color: var(--ink-2); text-transform: uppercase; }
+td.mono { font-family: var(--f-mono); font-size: 14px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+tbody tr { cursor: default; transition: background .15s; }
+tbody tr:hover, tbody tr.on { background: var(--gold-soft); }
+td:first-child { font-weight: 500; white-space: nowrap; }
+.scale { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; min-width: 0; }
+.scale-wrap { overflow-x: auto; }
+.scale svg { display: block; width: 100%; min-width: 520px; height: auto; }
+.scale .grid { stroke: var(--line); stroke-width: .3; }
+.scale .gl { fill: var(--gold-soft); stroke: var(--gold); stroke-width: .6; transition: fill .2s; }
+.scale g.on .gl, .scale g:hover .gl { fill: url(#gfill); }
+.scale text { fill: var(--ink-2); font-family: var(--f-mono); font-size: 7px; }
+.scale text.nm { fill: var(--ink); font-family: var(--f-body); font-size: 8.5px; font-weight: 500; }
+.scale-cap { margin-top: 12px; font-size: 13px; color: var(--ink-2); }
+@media (max-width: 960px) { .spec { grid-template-columns: minmax(0, 1fr); } .spec-head, .spec-left, .spec .scale { grid-column: 1; grid-row: auto; } }
+
+/* Uses */
+.uses-band { background: var(--surface); border-block: 1px solid var(--line); }
+.uses { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+.uses li { padding: 28px 24px 30px 0; border-bottom: 1px solid var(--line); display: grid; gap: 8px; align-content: start; min-width: 0; }
+.uses li:not(:nth-child(3n+1)) { padding-left: 24px; border-left: 1px solid var(--line); }
+.uses h3 { font-size: 19px; font-weight: 600; display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+.uses h3 span { font-family: var(--f-mono); font-size: 11px; font-weight: 400; letter-spacing: .1em; color: var(--gold); white-space: nowrap; }
+.uses p { color: var(--ink-2); font-size: 15px; }
+@media (max-width: 820px) {
+  .uses { grid-template-columns: 1fr; }
+  .uses li, .uses li:not(:nth-child(3n+1)) { padding: 22px 0; border-left: 0; }
+}
+
+/* About */
+.about { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(32px, 6vw, 88px); align-items: start; }
+.greet { display: grid; gap: 20px; }
+.greet blockquote {
+  margin: 0; font-family: var(--f-display); font-size: clamp(22px, 2.6vw, 30px); line-height: 1.55; color: var(--ink);
+}
+.greet p { color: var(--ink-2); max-width: 36em; }
+.greet .sign { font-size: 15px; color: var(--ink); }
+.greet .sign b { font-family: var(--f-display); font-weight: 400; font-size: 22px; margin-left: 8px; }
+dl.overview { margin: 0; display: grid; grid-template-columns: auto 1fr; border-top: 1px solid var(--ink); }
+dl.overview dt, dl.overview dd { padding: 14px 0; border-bottom: 1px solid var(--line); margin: 0; }
+dl.overview dt { font-family: var(--f-mono); font-size: 12px; letter-spacing: .1em; color: var(--ink-2); padding-right: 28px; padding-top: 17px; }
+dl.overview dd { font-variant-numeric: tabular-nums; }
+@media (max-width: 820px) { .about { grid-template-columns: 1fr; } }
+
+/* History */
+.hist { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; position: relative; }
+.hist::before { content: ""; position: absolute; left: 0; right: 0; top: 7px; height: 1px; background: var(--gold); opacity: .5; }
+.hist li { position: relative; padding: 32px 20px 0 0; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.hist li::before {
+  content: ""; position: absolute; left: 0; top: 2px; width: 11px; height: 11px; transform: rotate(45deg);
+  background: var(--gold-hi); box-shadow: 0 0 0 4px var(--paper);
+}
+.hist .yr { font-family: var(--f-display); font-size: 34px; line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; }
+.hist .mo { font-family: var(--f-mono); font-size: 12px; color: var(--ink-2); letter-spacing: .08em; }
+.hist p { font-size: 15px; }
+@media (max-width: 820px) {
+  .hist { grid-template-columns: 1fr; padding-left: 28px; }
+  .hist::before { left: 5px; right: auto; top: 6px; bottom: 6px; width: 1px; height: auto; }
+  .hist li { padding: 0 0 28px; }
+  .hist li::before { left: -28px; top: 10px; }
+  .hist li:last-child { padding-bottom: 0; }
+}
+
+/* Contact */
+.contact { background: var(--lacquer); color: var(--on-lacquer); }
+.contact .sec-head h2 { color: var(--on-lacquer); }
+.contact .sec-head p { color: var(--on-lacquer-2); }
+.contact .eyebrow { color: var(--gold-hi); }
+.cgrid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr); gap: 1px; background: rgba(215,178,90,.2); border: 1px solid rgba(215,178,90,.2); border-radius: var(--r); overflow: hidden; }
+.cbox { background: var(--lacquer); padding: 28px 26px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.cbox h3 { font-family: var(--f-mono); font-size: 11px; letter-spacing: .16em; color: var(--on-lacquer-2); text-transform: uppercase; }
+.tel { font-family: var(--f-display); font-size: clamp(32px, 4vw, 44px); line-height: 1.1; color: var(--gold-hi); text-decoration: none; font-variant-numeric: tabular-nums; }
+.cbox .sub { font-size: 14px; color: var(--on-lacquer-2); font-variant-numeric: tabular-nums; }
+.cbox .place { font-size: 18px; font-weight: 500; }
+.cbox address { font-style: normal; color: var(--on-lacquer-2); font-size: 15px; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.chip {
+  font: inherit; font-size: 13px; color: var(--on-lacquer); background: transparent; cursor: pointer; text-decoration: none;
+  border: 1px solid rgba(241,235,221,.25); border-radius: 999px; padding: 6px 14px; transition: border-color .2s, color .2s;
+}
+.chip:hover { border-color: var(--gold-hi); color: var(--gold-hi); }
+@media (max-width: 900px) { .cgrid { grid-template-columns: 1fr; } }
+
+footer { background: var(--lacquer); color: var(--on-lacquer-2); border-top: 1px solid rgba(215,178,90,.14); font-size: 13px; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-block: 28px; }
+footer a { text-decoration: none; }
+footer a:hover { color: var(--gold-hi); }
+footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
+
+.toast {
+  position: fixed; left: 50%; transform: translateX(-50%);
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px)); z-index: 40;
+  background: var(--gold-hi); color: #17120E; padding: 10px 18px; border-radius: 999px; font-size: 14px; font-weight: 500;
+}
+
+/* ---------- Q&A ---------- */
+#qna [hidden] { display: none !important; }
+.qna-top { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+.qna-top .sec-head { margin-bottom: 0; }
+.qbtn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 999px; border: 1px solid var(--gold); background: transparent; color: var(--ink); font: 500 15px var(--f-body); cursor: pointer; }
+.qbtn:hover { background: var(--gold-soft); }
+.qbtn.solid { background: var(--gold-hi); border-color: var(--gold-hi); color: #17120E; }
+.qlist { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+.qlist > li { border-bottom: 1px solid var(--line); }
+.qhead { width: 100%; display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 4px 16px; align-items: center; padding: 18px 4px; background: none; border: 0; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.qhead .t { font-size: 16px; font-weight: 500; overflow-wrap: anywhere; }
+.qhead .m { grid-column: 1; font-size: 13px; color: var(--ink-2); }
+.qtag { grid-row: 1 / span 2; grid-column: 2; font-family: var(--f-mono); font-size: 12px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-2); white-space: nowrap; }
+.qtag.done { border-color: var(--gold); color: var(--gold); }
+.qbody { padding: 0 4px 22px; display: grid; gap: 14px; }
+.qbody .q { white-space: pre-wrap; }
+.qbody .a { white-space: pre-wrap; background: var(--gold-soft); border-left: 3px solid var(--gold); padding: 14px 16px; border-radius: var(--r); }
+.qbody .a b { display: block; font-size: 13px; color: var(--gold); margin-bottom: 4px; }
+.qlock { display: flex; gap: 8px; flex-wrap: wrap; }
+.qempty { padding: 28px 4px; color: var(--ink-2); }
+.qmore { margin-top: 18px; text-align: center; }
+.qform { display: grid; gap: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(18px, 3vw, 28px); margin-bottom: 24px; }
+.qform[hidden] { display: none; }
+.qform .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+.qform label { display: grid; gap: 6px; font-size: 14px; font-weight: 500; }
+.qform label small { font-weight: 400; color: var(--ink-2); }
+.qform input[type=text], .qform input[type=password], .qform input[type=tel], .qform textarea, .qlock input {
+  width: 100%; font: 16px var(--f-body); color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); padding: 11px 12px; }
+.qlock input { width: auto; flex: 1 1 140px; }
+.qform textarea { min-height: 140px; resize: vertical; }
+.qform .chk { display: flex; align-items: center; gap: 8px; font-weight: 400; }
+.qform .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.qform .note { font-size: 13px; color: var(--ink-2); }
+.qform .act { display: flex; gap: 10px; flex-wrap: wrap; }
+.qmsg { font-size: 14px; color: var(--gold); min-height: 1.4em; }
+
+/* ---------- 언어 선택 KR / EN ---------- */
+.lang { display: flex; align-items: center; gap: 2px; font-family: var(--f-mono); font-size: 12px; letter-spacing: .06em; padding-left: 14px; border-left: 1px solid rgba(215,178,90,.25); }
+.lang a { color: var(--on-lacquer-2); text-decoration: none; padding: 6px 6px; border-radius: 4px; }
+.lang a:hover { color: var(--gold-hi); }
+.lang a[aria-current] { color: var(--gold-hi); font-weight: 500; }
+.lang i { font-style: normal; color: rgba(241,235,221,.3); }
+@media (max-width: 1060px) {
+  .lang { order: 1; margin-left: auto; border-left: 0; padding-left: 0; font-size: 13px; }
+  .menu-btn { order: 2; }
+}
+
+/* ---------- 문의하기 ---------- */
+.nav a { white-space: nowrap; }
+.inq { width: min(640px, calc(100% - 24px)); max-height: calc(100dvh - 24px); padding: 0; border: 0; border-radius: 10px; background: var(--surface); color: var(--ink); box-shadow: 0 24px 80px rgba(0,0,0,.35); overflow: auto; }
+.inq::backdrop { background: rgba(15,11,8,.6); }
+.inq form { display: grid; gap: 12px; padding: clamp(20px, 4vw, 34px); }
+.inq .x { position: absolute; top: 14px; right: 14px; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 20px; line-height: 1; cursor: pointer; }
+.inq h2 { font-family: var(--f-display); font-size: clamp(26px, 4vw, 34px); line-height: 1.2; }
+.inq .lead { color: var(--ink-2); margin-bottom: 6px; }
+.inq .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.inq label { display: grid; gap: 6px; font-size: 14px; font-weight: 500; }
+.inq label i { font-style: normal; color: var(--gold); }
+.inq input[type=text], .inq input[type=email], .inq input[type=tel], .inq textarea { width: 100%; font: 16px var(--f-body); color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 4px; padding: 11px 12px; }
+.inq textarea { min-height: 150px; resize: vertical; }
+.inq .agree { display: flex; gap: 8px; align-items: flex-start; font-weight: 400; font-size: 13px; color: var(--ink-2); }
+.inq .agree input { margin-top: 4px; }
+.inq .agree details { color: var(--ink-2); }
+.inq .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.inq .send { justify-content: center; border: 0; cursor: pointer; font-family: var(--f-body); }
+.inq .msg { font-size: 14px; color: var(--gold); min-height: 1.4em; }
+.inq .done { display: grid; gap: 14px; padding: clamp(28px, 5vw, 44px); text-align: center; }
+</style>
+</head>
+<body>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="#home" aria-label="Han Il Gold Leaf home">
+      <img class="brand-logo" src="../img/logo-light.png" alt="HAN IL GOLD LEAF Co. EST.1965" width="899" height="97">
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+    <nav class="nav" id="nav" aria-label="Main menu">
+      <a href="#products">Products</a>
+      <a href="#uses">Applications</a>
+      <a href="#about">About</a>
+      <a href="#history">History</a>
+      <a href="#qna">Q&amp;A</a>
+      <a href="#contact">Location</a>
+      <a class="shop" href="https://hanilgoldleaf.cafe24.com/" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9h14l-1.4 9.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8L5 9Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 9 12 4l3 5M3.5 9h17M10 12.5v4M14 12.5v4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>Online Shop</a>
+      <a class="call" href="#contact" data-inq>Contact Us</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Language"><a href="../" lang="ko" hreflang="ko">KR</a><i aria-hidden="true">/</i><a href="./" lang="en" hreflang="en" aria-current="true">EN</a></div>
+  </div>
+</header>
+
+<main id="home">
+  <section class="hero" aria-labelledby="heroTitle">
+    <canvas class="hero-bg" id="dancheong" role="img" aria-label="Traditional Korean dancheong pattern with gold leaf"></canvas>
+    <span class="hero-cap">Gold dancheong pattern</span>
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="eyebrow">Since 1965 · Korea’s First &amp; Largest Gold Leaf Maker</span>
+        <h1 id="heroTitle"><em>60 years</em> of craft<br>in every leaf</h1>
+        <p class="hero-lede">Founded in 1965 as <strong>Korea's first</strong> gold leaf maker, Han Il Gold Leaf is now <strong>Korea's largest</strong>. We make our own gold leaf, gold flakes and gold powder, and supply them in the right size for pharmaceuticals, food additives, cosmetics, Buddhist art, dancheong and interior finishing.</p>
+        <div class="hero-actions">
+          <a class="btn btn-gold" href="#products">View products <span aria-hidden="true">→</span></a>
+          <a class="btn btn-line" href="https://hanilgoldleaf.cafe24.com/" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9h14l-1.4 9.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8L5 9Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 9 12 4l3 5M3.5 9h17M10 12.5v4M14 12.5v4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>Online Shop</a>
+          <a class="btn btn-line" href="#contact" data-inq>Request a quote</a>
+        </div>
+      </div>
+    </div>
+    <div class="facts">
+      <div class="wrap"><ul>
+        <li><span class="num">1965</span><span class="lbl">Han Il Gold Leaf founded</span></li>
+        <li><span class="num">6,600<small>m²</small></span><span class="lbl">Anseong factory site</span></li>
+        <li><span class="num">Pharma<small>(herbal)</small></span><span class="lbl">Manufacturing license (2016)</span></li>
+        <li><span class="num">GMP</span><span class="lbl">Herbal medicine GMP (2016)</span></li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section class="sec" id="products" aria-labelledby="prodTitle">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Products</span>
+        <h2 id="prodTitle">Gold Leaf · Flakes · Powder</h2>
+        <p>From thin sheets of gold leaf to torn gold flakes and fine gold powder, choose the form and size that suits your work.</p>
+      </div>
+
+      <div class="cats">
+        <article class="cat">
+          <figure class="tex"><canvas data-tex="leaf" data-seed="11"></canvas><img src="../img/geumbak-card.png" alt="Han Il gold leaf" loading="lazy" onerror="this.remove()"><span class="tag">GOLD LEAF</span></figure>
+          <h3>Gold Leaf <small>金箔</small></h3>
+          <p>Gold beaten into thin single sheets. We make it in several sizes: gilding leaf for Buddhist statues and crafts, dancheong leaf for outdoor work, 4-cut and 6-cut for coating herbal pills (gongjindan), and large sheets for plaques and cards.</p>
+          <ul><li>Crafts · Gilding</li><li>Dancheong</li><li>Pharmaceutical</li><li>Plaques · Cards</li></ul>
+        </article>
+        <article class="cat">
+          <figure class="tex"><canvas data-tex="flake" data-seed="23"></canvas><img src="../img/geumseol.png" alt="Han Il gold flakes" loading="lazy" onerror="this.remove()"><span class="tag">GOLD FLAKES</span></figure>
+          <h3>Gold Flakes <small>金屑</small></h3>
+          <p>Gold leaf torn into small flakes. Widely used to decorate food such as cakes and as a cosmetic ingredient. Flake size is 2~16 mesh. The minimum pack is 2g, and you can add 1g at a time (e.g. 2g, 3g, 4g).</p>
+          <ul><li>Food decoration</li><li>Cosmetics</li></ul>
+        </article>
+        <article class="cat">
+          <figure class="tex"><canvas data-tex="powder" data-seed="37"></canvas><img src="../img/geumbun.png" alt="Han Il gold powder" loading="lazy" onerror="this.remove()"><span class="tag">GOLD POWDER</span></figure>
+          <h3>Gold Powder <small>金粉</small></h3>
+          <p>Gold leaf ground as fine as flour. Packed in 2g bags and used for calligraphy, painting, cosmetics and craft finishing.</p>
+          <ul><li>Calligraphy · Painting</li><li>Cosmetics</li><li>Craft finishing</li></ul>
+        </article>
+      </div>
+
+      <div class="spec">
+        <div class="spec-head">
+          <span class="eyebrow">Specifications</span>
+          <h3>Gold leaf sizes</h3>
+        </div>
+        <div class="spec-left">
+          <p class="spec-lede">Gold leaf is packed in <b>books</b> of interleaved sheets. Hover over or tap a row to see its true size on the scale drawing.</p>
+          <figure class="shot">
+            <img id="shotImg" src="../img/geumbak-4jeol.png" alt="Han Il 4-cut gold leaf and packaging" width="560" height="248" loading="lazy">
+            <figcaption><span id="shotName">4-cut gold leaf and packaging</span> <span id="shotSpec">5.5 × 5.5 cm · 400 sheets/book</span></figcaption>
+          </figure>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Type</th><th>Size</th><th>Pack</th><th>Main use</th></tr></thead>
+              <tbody id="specRows">
+                <tr data-k="gg" data-photo="../img/geumbak-gaegeum-dancheong.png" tabindex="0"><td>Gilding</td><td class="mono">11 × 11 cm</td><td class="mono">100 sheets<br>per book</td><td>Buddhist statues, crafts</td></tr>
+                <tr data-k="gg" data-photo="../img/geumbak-gaegeum-dancheong.png" tabindex="0"><td>Dancheong</td><td class="mono">11 × 11 cm</td><td class="mono">100 sheets<br>per book</td><td>Outdoor dancheong (pressed on paper so it won't blow away)</td></tr>
+                <tr data-k="s4" data-photo="../img/geumbak-4jeol.png" tabindex="0"><td>4-cut</td><td class="mono">5.5 × 5.5 cm</td><td class="mono">400 sheets<br>per book</td><td>Coating herbal pills (gongjindan)</td></tr>
+                <tr data-k="s6" data-photo="../img/geumbak-6jeol.png" tabindex="0"><td>6-cut</td><td class="mono">3.7 × 5.5 cm</td><td class="mono">600 sheets<br>per book</td><td>Coating small herbal pills</td></tr>
+                <tr data-k="cd" data-photo="../img/geumbak-card.png" data-cap="Card gold leaf" data-spec="11 × 15 ~ 12.5 × 18.3 cm · 100 sheets/book" tabindex="0"><td>Card</td><td class="mono">11 × 15 cm<br>11 × 17.4 cm<br>11.9 × 18.3 cm<br>12.5 × 18.3 cm</td><td class="mono">100 sheets<br>per book</td><td>Plaques, cards</td></tr>
+                <tr data-photo="../img/geumseol-package.png" data-cap="Gold flakes and packaging" data-spec="2~16 mesh · from 2g, in 1g steps" tabindex="0"><td>Gold flakes</td><td class="mono">2~16 mesh</td><td class="mono">From 2g<br>in 1g steps</td><td>Food decoration, cosmetics</td></tr>
+                <tr data-photo="../img/geumbun.png" data-cap="Gold powder and packaging" data-spec="2g per bag" tabindex="0"><td>Gold powder</td><td class="mono">—</td><td class="mono">2g per bag</td><td>Calligraphy, painting, cosmetics, craft finishing</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="scale">
+          <div class="scale-wrap">
+            <svg id="scaleSvg" viewBox="0 0 400 236" role="img" aria-label="Gold leaf sizes drawn to scale">
+              <defs>
+                <linearGradient id="gfill" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#F3D88E"/><stop offset=".5" stop-color="#CFA549"/><stop offset="1" stop-color="#9C7428"/>
+                </linearGradient>
+                <pattern id="cm" width="10" height="10" patternUnits="userSpaceOnUse" x="10" y="10">
+                  <path class="grid" d="M10 0 V10 M0 10 H10" fill="none"/>
+                </pattern>
+              </defs>
+              <rect x="10" y="10" width="380" height="190" fill="url(#cm)"/>
+              <!-- 1 cm = 10 units, 바닥선 y=200 -->
+              <g data-k="gg"><rect class="gl" x="18" y="90" width="110" height="110"/><text class="nm" x="18" y="82">Gilding · Dancheong</text><text x="18" y="214">11×11</text></g>
+              <g data-k="s4"><rect class="gl" x="142" y="145" width="55" height="55"/><text class="nm" x="142" y="137">4-cut</text><text x="142" y="214">5.5×5.5</text></g>
+              <g data-k="s6"><rect class="gl" x="210" y="145" width="37" height="55"/><text class="nm" x="210" y="137">6-cut</text><text x="210" y="214">3.7×5.5</text></g>
+              <g data-k="cd"><rect class="gl" x="261" y="17" width="125" height="183"/><text class="nm" x="265" y="30">Card</text><text x="261" y="214">max 12.5×18.3</text></g>
+              <text x="10" y="230">1 grid square = 1 cm</text>
+            </svg>
+          </div>
+          <p class="scale-cap">All sheets are drawn to the same scale. Card leaf is shown at its largest size, 12.5 × 18.3 cm.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="uses-band" id="uses" aria-labelledby="usesTitle">
+    <div class="wrap sec">
+      <div class="sec-head">
+        <span class="eyebrow">Applications</span>
+        <h2 id="usesTitle">Wherever gold is needed</h2>
+        <p>We hold a pharmaceutical manufacturing license and herbal medicine GMP certification, and we put purity and safety first for edible gold.</p>
+      </div>
+      <ul class="uses">
+        <li><h3>Pharmaceutical <span>4-cut · 6-cut</span></h3><p>Gold leaf coats herbal pills such as gongjindan. Choose 4-cut or 6-cut to match the pill size.</p></li>
+        <li><h3>Food additive <span>Flakes · Leaf</span></h3><p>Edible gold to garnish fine dishes, drinks and cakes.</p></li>
+        <li><h3>Cosmetics <span>Flakes · Powder</span></h3><p>Gold flakes and powder as an ingredient for creams, essences and more.</p></li>
+        <li><h3>Buddhist art · Crafts <span>Gilding</span></h3><p>Used to gild Buddhist statues and craft objects.</p></li>
+        <li><h3>Dancheong <span>Dancheong leaf</span></h3><p>Pressed onto paper, so it stays put in the wind during outdoor work.</p></li>
+        <li><h3>Plaques · Cards · Interiors <span>Card</span></h3><p>Large sheets for plaques, cards and architectural or interior finishing.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec" id="about" aria-labelledby="aboutTitle">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">About</span>
+        <h2 id="aboutTitle">About us</h2>
+      </div>
+      <div class="about">
+        <div class="greet">
+          <blockquote>“For more than 50 years, building our customers' needs into every product has been the measure of our quality.”</blockquote>
+          <p>Han Il Gold Leaf has focused on one thing: making and selling gold leaf, gold flakes and gold powder. Because edible gold decorates fine food and drink, purity and safety always come first, and our products are food-safety certified. We will keep repaying your trust with honest gold leaf.</p>
+          <p class="sign">CEO, Han Il Gold Leaf <b>Jung Se-cheol</b></p>
+        </div>
+        <dl class="overview">
+          <dt>Company</dt><dd>Han Il Gold Leaf Co.</dd>
+          <dt>Founded</dt><dd>November 25, 1965</dd>
+          <dt>CEO</dt><dd>Jung Se-cheol</dd>
+          <dt>Employees</dt><dd>45</dd>
+          <dt>Business</dt><dd>Manufacture and sale of gold leaf, flakes and powder</dd>
+          <dt>Factory site</dt><dd>6,600 m² (Anseong, Gyeonggi-do)</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="history" aria-labelledby="histTitle" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">History</span>
+        <h2 id="histTitle">History</h2>
+      </div>
+      <ol class="hist">
+        <li><span class="yr">1965</span><span class="mo">Nov</span><p>Jung Ho-sang founds Han Il Gold Leaf</p></li>
+        <li><span class="yr">1972</span><span class="mo">Oct</span><p>Opens in Mosan-ri, Daedeok-myeon, Anseong</p></li>
+        <li><span class="yr">2013</span><span class="mo">Jan</span><p>Jung Se-cheol becomes CEO</p></li>
+        <li><span class="yr">2016</span><span class="mo">Jan</span><p>Pharmaceutical manufacturing license</p></li>
+        <li><span class="yr">2016</span><span class="mo">Jun</span><p>Herbal medicine GMP certificate</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" id="qna" aria-labelledby="qnaTitle">
+    <div class="wrap">
+      <div class="qna-top">
+        <div class="sec-head">
+          <span class="eyebrow">Q&amp;A</span>
+          <h2 id="qnaTitle">Questions &amp; answers</h2>
+          <p>Ask about our products, sizes or orders. Questions are posted together with our answer after review.</p>
+        </div>
+        <button class="qbtn solid" type="button" id="qWriteBtn" aria-expanded="false" aria-controls="qForm">Ask a question</button>
+      </div>
+
+      <form class="qform" id="qForm" hidden novalidate>
+        <div class="two">
+          <label>Name <input type="text" name="name" maxlength="20" required autocomplete="name"></label>
+          <label>Phone or email <small>Optional · never shown publicly</small><input type="tel" name="contact" maxlength="60" autocomplete="tel"></label>
+        </div>
+        <label>Subject <input type="text" name="title" maxlength="80" required></label>
+        <label>Question <textarea name="body" maxlength="2000" required></textarea></label>
+        <div class="two">
+          <label>Password <small>4+ characters · to open a private post</small><input type="password" name="pw" minlength="4" maxlength="30" required autocomplete="new-password"></label>
+          <label>Anti-spam check <small id="qCapQ"></small><input type="text" name="cap" inputmode="numeric" maxlength="3" required></label>
+        </div>
+        <label class="chk"><input type="checkbox" name="secret"> Private post (only the subject is shown; the question and answer open with your password)</label>
+        <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+        <p class="note">Posts with links, advertising or adult content are rejected. All posts are reviewed before they appear.</p>
+        <div class="act"><button class="qbtn solid" type="submit">Submit</button><button class="qbtn" type="button" id="qCancel">Cancel</button></div>
+        <p class="qmsg" id="qMsg" role="status"></p>
+      </form>
+
+      <ul class="qlist" id="qList" aria-live="polite"><li class="qempty">Loading questions…</li></ul>
+      <div class="qmore"><button class="qbtn" type="button" id="qMore" hidden>Show more</button></div>
+    </div>
+  </section>
+
+  <section class="contact sec" id="contact" aria-labelledby="contactTitle">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Contact</span>
+        <h2 id="contactTitle">Orders &amp; quotes</h2>
+        <p>Tell us the product and quantity you need, and we will advise on sizes and delivery time. We welcome inquiries from overseas.</p>
+        <p><a class="btn btn-gold" href="#contact" data-inq>Send an inquiry →</a></p>
+      </div>
+      <div class="cgrid">
+        <div class="cbox">
+          <h3>Phone</h3>
+          <a class="tel" href="tel:+8227338788">+82 2-733-8788</a>
+          <p class="sub">Fax +82 2-738-9481</p>
+          <div class="row"><button class="chip" type="button" data-copy="+82 2-733-8788">Copy number</button></div>
+        </div>
+        <div class="cbox">
+          <h3>Seoul office</h3>
+          <p class="place">Insadong</p>
+          <address>Room 503, Taehwa Building<br>29 Insadong 5-gil, Jongno-gu, Seoul</address>
+          <div class="row">
+            <a class="chip" href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%20%EC%A2%85%EB%A1%9C%EA%B5%AC%20%EC%9D%B8%EC%82%AC%EB%8F%995%EA%B8%B8%2029" target="_blank" rel="noopener">Naver Map</a>
+            <button class="chip" type="button" data-copy="Room 503, Taehwa Building, 29 Insadong 5-gil, Jongno-gu, Seoul, Korea">Copy address</button>
+          </div>
+        </div>
+        <div class="cbox">
+          <h3>Factory</h3>
+          <p class="place">Anseong</p>
+          <address>105 Gongdan 2-ro, Anseong-si, Gyeonggi-do</address>
+          <div class="row">
+            <a class="chip" href="https://map.naver.com/p/search/%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EC%95%88%EC%84%B1%EC%8B%9C%20%EA%B3%B5%EB%8B%A82%EB%A1%9C%20105" target="_blank" rel="noopener">Naver Map</a>
+            <button class="chip" type="button" data-copy="105 Gongdan 2-ro, Anseong-si, Gyeonggi-do, Korea">Copy address</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Han Il Gold Leaf Co. · CEO Jung Se-cheol · Copyright © 2026 Han Il Gold Leaf. All rights reserved.</span>
+    <nav aria-label="Footer menu"><a href="#products">Products</a><a href="#about">About</a><a href="#qna">Q&amp;A</a><a href="#contact" data-inq>Contact Us</a><a href="#contact">Location</a><a href="#home">Back to top</a><a href="../" lang="ko">한국어</a></nav>
+  </div>
+</footer>
+
+<dialog class="inq" id="inq" aria-labelledby="inqTitle">
+  <form id="inqForm" novalidate>
+    <button class="x" type="button" data-close aria-label="Close">×</button>
+    <span class="eyebrow">Contact us</span>
+    <h2 id="inqTitle">Contact us</h2>
+    <p class="lead">Send us your question about orders, quotes or sizes and we will get back to you. You may write in English or Korean.</p>
+    <div class="two">
+      <label><span>Company / Title <i>*</i></span><input type="text" name="company" maxlength="60" autocomplete="organization" required></label>
+      <label><span>Name <i>*</i></span><input type="text" name="name" maxlength="30" autocomplete="name" required></label>
+      <label><span>Email <i>*</i></span><input type="email" name="email" maxlength="100" autocomplete="email" required></label>
+      <label>Phone<input type="tel" name="phone" maxlength="40" autocomplete="tel"></label>
+    </div>
+    <label><span>Subject <i>*</i></span><input type="text" name="title" maxlength="100" required></label>
+    <label><span>Message <i>*</i></span><textarea name="body" maxlength="3000" required placeholder="Product, quantity, delivery date, destination country, etc."></textarea></label>
+    <div class="two">
+      <label><span>Anti-spam check <i>*</i></span> <small id="inqCapQ" style="font-weight:400;color:var(--ink-2)"></small><input type="text" name="cap" inputmode="numeric" maxlength="3" required></label>
+    </div>
+    <label class="agree"><input type="checkbox" name="agree" required><span>I agree to the collection and use of my personal information. <i>*</i><br>Collected: company, name, email, phone · Purpose: replying to your inquiry · Kept for 1 year after our reply, then deleted</span></label>
+    <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+    <button class="btn btn-gold send" type="submit">Send inquiry →</button>
+    <p class="msg" id="inqMsg" role="status"></p>
+  </form>
+  <div class="done" id="inqDone" hidden>
+    <span class="eyebrow">Thank you</span>
+    <h2>Your inquiry has been sent</h2>
+    <p class="lead">We will reply to the contact details you left. For urgent matters, please call +82 2-733-8788.</p>
+    <p><button class="btn btn-gold send" type="button" data-close>Close</button></p>
+  </div>
+</dialog>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(function () {
+  // ---------- 메뉴 ----------
+  var top = document.getElementById('top'), btn = document.getElementById('menuBtn');
+  btn.addEventListener('click', function () {
+    var open = top.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  document.querySelectorAll('#nav a').forEach(function (a) {
+    a.addEventListener('click', function () { top.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); });
+  });
+
+  // ---------- Q&A (Supabase) ----------
+  (function () {
+    var SB_URL = 'https://hsfnkregnbxoyoollxwp.supabase.co', SB_KEY = 'sb_publishable_X_oSmjFVZleVJRKSOeQ72Q_jhWNpk1e';   // Supabase 프로젝트 주소와 공개 키
+    var list = document.getElementById('qList'), more = document.getElementById('qMore');
+    var form = document.getElementById('qForm'), wbtn = document.getElementById('qWriteBtn'), msg = document.getElementById('qMsg');
+    var PAGE = 10, offset = 0, capA = 0;
+    function hdr(extra) {
+      var h = { apikey: SB_KEY, 'Content-Type': 'application/json' };
+      if (SB_KEY.indexOf('eyJ') === 0) h.Authorization = 'Bearer ' + SB_KEY;
+      for (var k in extra) h[k] = extra[k];
+      return h;
+    }
+    function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+    function ymd(t) { var d = new Date(t); return d.getFullYear() + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + String(d.getDate()).padStart(2, '0'); }
+    function mask(n) { n = String(n || ''); return n.length <= 1 ? n : n[0] + '*'.repeat(Math.min(n.length - 1, 3)); }
+    function answerBox(a) { var d = el('div', 'a'); d.appendChild(el('b', null, 'Answer from Han Il')); d.appendChild(document.createTextNode(a)); return d; }
+    function item(q) {
+      var li = el('li'), head = el('button', 'qhead'), body = el('div', 'qbody');
+      head.type = 'button'; head.setAttribute('aria-expanded', 'false'); body.hidden = true;
+      head.appendChild(el('span', 't', (q.is_secret ? '🔒 ' : '') + q.title));
+      head.appendChild(el('span', 'm', mask(q.name) + ' · ' + ymd(q.created_at)));
+      head.appendChild(el('span', 'qtag' + (q.answered_at ? ' done' : ''), q.answered_at ? 'Answered' : 'Pending'));
+      if (q.is_secret) {
+        var f = el('form', 'qlock'), pw = el('input'), ok = el('button', 'qbtn', 'Open'), m = el('p', 'qmsg');
+        pw.type = 'password'; pw.placeholder = 'Password'; pw.setAttribute('aria-label', 'Password'); ok.type = 'submit';
+        f.appendChild(pw); f.appendChild(ok); body.appendChild(f); body.appendChild(m);
+        f.addEventListener('submit', function (e) {
+          e.preventDefault(); m.textContent = 'Checking…';
+          fetch(SB_URL + '/rest/v1/rpc/qna_open', { method: 'POST', headers: hdr(), body: JSON.stringify({ p_id: q.id, p_pw: pw.value }) })
+            .then(function (r) { return r.json(); })
+            .then(function (rows) {
+              if (!rows || !rows.length) { m.textContent = 'Wrong password.'; return; }
+              body.textContent = ''; body.appendChild(el('p', 'q', rows[0].body));
+              if (rows[0].answer) body.appendChild(answerBox(rows[0].answer));
+            }).catch(function () { m.textContent = 'Please try again shortly.'; });
+        });
+      } else {
+        body.appendChild(el('p', 'q', q.body));
+        if (q.answer) body.appendChild(answerBox(q.answer));
+      }
+      head.addEventListener('click', function () { body.hidden = !body.hidden; head.setAttribute('aria-expanded', body.hidden ? 'false' : 'true'); });
+      li.appendChild(head); li.appendChild(body); return li;
+    }
+    function load() {
+      if (!SB_URL) { list.innerHTML = ''; list.appendChild(el('li', 'qempty', 'The board is being prepared. Please call +82 2-733-8788.')); wbtn.hidden = true; return; }
+      fetch(SB_URL + '/rest/v1/qna_public?select=*&order=created_at.desc&limit=' + (PAGE + 1) + '&offset=' + offset, { headers: hdr() })
+        .then(function (r) { if (!r.ok) throw r; return r.json(); })
+        .then(function (rows) {
+          if (offset === 0) list.innerHTML = '';
+          if (!rows.length && offset === 0) list.appendChild(el('li', 'qempty', 'No questions yet. Be the first to ask.'));
+          rows.slice(0, PAGE).forEach(function (q) { list.appendChild(item(q)); });
+          more.hidden = rows.length <= PAGE; offset += PAGE;
+        }).catch(function () { list.innerHTML = ''; list.appendChild(el('li', 'qempty', 'Could not load questions. Please try again shortly.')); });
+    }
+    function newCap() { var a = 2 + Math.floor(Math.random() * 8), b = 1 + Math.floor(Math.random() * 9); capA = a + b; document.getElementById('qCapQ').textContent = a + ' + ' + b + ' = ?'; form.cap.value = ''; }
+    var BAD = /(https?:\/\/|www\.|\.(com|net|kr|xyz|top|io|me|ly)(\/|\s|$)|bit\.ly|t\.me|카지노|바카라|토토|슬롯|도박|먹튀|성인|야동|섹스|섹시|조건만남|출장안마|오피걸|룸살롱|대출|코인|리딩방|텔레그램|비아그라|casino|porn|sex|viagra|loan|crypto)/i;
+    var opened = 0;
+    function toggle(open) { form.hidden = !open; wbtn.setAttribute('aria-expanded', open ? 'true' : 'false'); if (open) { newCap(); opened = Date.now(); msg.textContent = ''; form.name.focus(); } }
+    wbtn.addEventListener('click', function () { toggle(form.hidden); });
+    document.getElementById('qCancel').addEventListener('click', function () { toggle(false); });
+    more.addEventListener('click', load);
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var v = { name: form.name.value.trim(), contact: form.contact.value.trim(), title: form.title.value.trim(), body: form.body.value.trim(), pw: form.pw.value };
+      if (form.website.value || Date.now() - opened < 4000) { msg.textContent = 'Please try again shortly.'; return; }
+      if (!v.name || v.title.length < 2 || v.body.length < 5) { msg.textContent = 'Please enter your name, subject and question.'; return; }
+      if (v.pw.length < 4) { msg.textContent = 'Please enter a password of 4 or more characters.'; return; }
+      if (parseInt(form.cap.value, 10) !== capA) { msg.textContent = 'The anti-spam answer is incorrect.'; newCap(); return; }
+      if (BAD.test([v.name, v.title, v.body].join(' '))) { msg.textContent = 'Links and advertising are not allowed.'; return; }
+      msg.textContent = 'Submitting…';
+      fetch(SB_URL + '/rest/v1/qna', { method: 'POST', headers: hdr({ Prefer: 'return=minimal' }),
+        body: JSON.stringify({ name: v.name, contact: v.contact || null, title: v.title, body: v.body, is_secret: form.secret.checked, pw_hash: v.pw }) })
+        .then(function (r) {
+          if (!r.ok) return r.json().then(function (j) { throw new Error(j && j.message || ''); });
+          form.reset(); form.hidden = true; wbtn.setAttribute('aria-expanded', 'false');
+          show('Submitted. It will appear with our answer after review.');
+        })
+        .catch(function (err) { msg.textContent = (err && /링크/.test(err.message)) ? 'Links are not allowed.' : (err && /단어/.test(err.message)) ? 'Your post contains words that are not allowed.' : (err && /잠시/.test(err.message)) ? 'Too many posts. Please try again in a minute.' : 'Could not submit. Please try again shortly.'; newCap(); });
+    });
+    load();
+  })();
+
+  // ---------- 문의하기 ----------
+  (function () {
+    var W3F_KEY = 'a600f14e-f5d5-42d3-ba46-03a2e027d42f';   // Web3Forms access key: 문의가 이 키에 등록된 이메일로 전송됨
+    var dlg = document.getElementById('inq'), form = document.getElementById('inqForm'), done = document.getElementById('inqDone'), msg = document.getElementById('inqMsg');
+    if (!dlg || typeof dlg.showModal !== 'function' || !W3F_KEY) return;
+    var capA = 0, opened = 0;
+    function newCap() { var a = 2 + Math.floor(Math.random() * 8), b = 1 + Math.floor(Math.random() * 9); capA = a + b; document.getElementById('inqCapQ').textContent = a + ' + ' + b + ' = ?'; form.cap.value = ''; }
+    function open(e) { e.preventDefault(); form.hidden = false; done.hidden = true; msg.textContent = ''; newCap(); opened = Date.now(); dlg.showModal(); form.company.focus(); }
+    document.querySelectorAll('[data-inq]').forEach(function (a) { a.addEventListener('click', open); });
+    dlg.querySelectorAll('[data-close]').forEach(function (b) { b.addEventListener('click', function () { dlg.close(); }); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+    var BAD = /(https?:\/\/|www\.|bit\.ly|t\.me|카지노|바카라|토토|슬롯|도박|먹튀|야동|섹스|조건만남|출장안마|오피걸|룸살롱|리딩방|텔레그램|비아그라|casino|porn|viagra)/i;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var v = { company: form.company.value.trim(), name: form.name.value.trim(), email: form.email.value.trim(), phone: form.phone.value.trim(), title: form.title.value.trim(), body: form.body.value.trim() };
+      if (form.website.value || Date.now() - opened < 4000) { msg.textContent = 'Please try again shortly.'; return; }
+      if (!v.company || !v.name || !v.email || v.title.length < 2 || v.body.length < 5) { msg.textContent = 'Please fill in all fields marked *.'; return; }
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v.email)) { msg.textContent = 'Please check your email address.'; return; }
+      if (parseInt(form.cap.value, 10) !== capA) { msg.textContent = 'The anti-spam answer is incorrect.'; newCap(); return; }
+      if (!form.agree.checked) { msg.textContent = 'Please agree to the use of your personal information.'; return; }
+      if (BAD.test([v.company, v.name, v.title, v.body].join(' '))) { msg.textContent = 'Links and advertising are not allowed.'; return; }
+      msg.textContent = 'Sending…';
+      fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ access_key: W3F_KEY, subject: '[홈페이지 문의 · 영문] ' + v.title, from_name: '한일금박 홈페이지', replyto: v.email, botcheck: '',
+          '회사명/직함': v.company, '담당자명': v.name, '이메일': v.email, '연락처': v.phone || '-', '제목': v.title, '문의 내용': v.body }) })
+        .then(function (r) { return r.json(); })
+        .then(function (j) {
+          if (!j || !j.success) throw new Error('');
+          form.reset(); form.hidden = true; done.hidden = false;
+        })
+        .catch(function () { msg.textContent = 'Could not send. Please call +82 2-733-8788 or try again later.'; newCap(); });
+    });
+  })();
+
+  // ---------- 복사 ----------
+  var toast = document.getElementById('toast'), tt;
+  function show(msg) { toast.textContent = msg; toast.hidden = false; clearTimeout(tt); tt = setTimeout(function () { toast.hidden = true; }, 1800); }
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var v = b.getAttribute('data-copy');
+      try {
+        navigator.clipboard.writeText(v).then(function () { show('Copied: ' + v); }, function () { show(v); });
+      } catch (e) { show(v); }
+    });
+  });
+
+  // ---------- 규격표 ↔ 비율 그림 ----------
+  var svg = document.getElementById('scaleSvg');
+  function mark(k) { svg.querySelectorAll('g[data-k]').forEach(function (g) { g.classList.toggle('on', g.getAttribute('data-k') === k); }); }
+  document.querySelectorAll('#specRows tr[data-k], #specRows tr[data-photo]').forEach(function (tr) {
+    var k = tr.getAttribute('data-k');
+    function on() { document.querySelectorAll('#specRows tr').forEach(function (r) { r.classList.remove('on'); }); tr.classList.add('on'); mark(k); photo(tr); }
+    tr.addEventListener('mouseenter', on); tr.addEventListener('focus', on); tr.addEventListener('click', on);
+  });
+  function photo(tr) {
+    var src = tr.getAttribute('data-photo'); if (!src) return;
+    var c = tr.children, cap = tr.getAttribute('data-cap') || (c[0].textContent + ' gold leaf and packaging');
+    shotImg.src = src; shotImg.alt = 'Han Il ' + cap;
+    shotName.textContent = cap;
+    shotSpec.textContent = tr.getAttribute('data-spec') || (c[1].textContent.replace(/\s+/g, ' ').trim() + ' · ' + c[2].innerText.replace(/\s+/g, ' ').trim());
+  }
+  var shotImg = document.getElementById('shotImg'), shotName = document.getElementById('shotName'), shotSpec = document.getElementById('shotSpec');
+  var first = document.querySelector('#specRows tr[data-k="s4"]'); first.classList.add('on'); mark('s4');
+
+  // ---------- 금박 텍스처 생성 ----------
+  function rng(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  function noise(N, seed) {
+    var r = rng(seed), h = new Float32Array(N * N);
+    [[4, 1], [8, .5], [16, .26], [34, .13], [70, .05]].forEach(function (o) {
+      var s = o[0], a = o[1], g = new Float32Array((s + 1) * (s + 1));
+      for (var i = 0; i < g.length; i++) g[i] = r() * 2 - 1;
+      for (var y = 0; y < N; y++) {
+        var fy = y / N * s, iy = fy | 0, ty = fy - iy; ty = ty * ty * (3 - 2 * ty);
+        for (var x = 0; x < N; x++) {
+          var fx = x / N * s, ix = fx | 0, tx = fx - ix; tx = tx * tx * (3 - 2 * tx);
+          var a0 = g[iy * (s + 1) + ix], b0 = g[iy * (s + 1) + ix + 1], a1 = g[(iy + 1) * (s + 1) + ix], b1 = g[(iy + 1) * (s + 1) + ix + 1];
+          h[y * N + x] += a * ((a0 + (b0 - a0) * tx) * (1 - ty) + (a1 + (b1 - a1) * tx) * ty);
+        }
+      }
+    });
+    return h;
+  }
+  function makeLeaf(N, seed) {
+    var r = rng(seed * 7 + 1), h = noise(N, seed), edge = noise(N, seed + 99), mask = new Float32Array(N * N);
+    // 주름: 짧은 선분을 따라 솟거나 꺼진 자국
+    for (var k = 0; k < 26; k++) {
+      var cx = r(), cy = r(), ang = r() * Math.PI, len = .15 + r() * .5, w = .003 + r() * .012, amp = (r() < .5 ? -1 : 1) * (.25 + r() * .6);
+      var dx = Math.cos(ang), dy = Math.sin(ang);
+      for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) {
+        var px = x / N - cx, py = y / N - cy, t = px * dx + py * dy;
+        if (t < -len / 2 || t > len / 2) continue;
+        var d = Math.abs(px * -dy + py * dx);
+        if (d > w * 4) continue;
+        var fall = 1 - Math.abs(t) / (len / 2);
+        h[y * N + x] += amp * fall * Math.exp(-(d / w) * (d / w));
+      }
+    }
+    for (var y2 = 0; y2 < N; y2++) for (var x2 = 0; x2 < N; x2++) {
+      var u = x2 / N, v = y2 / N, e = Math.min(u, 1 - u, v, 1 - v), n = edge[y2 * N + x2];
+      var m = (e - .035 - n * .028) / .008;
+      mask[y2 * N + x2] = m < 0 ? 0 : m > 1 ? 1 : m;
+    }
+    return { N: N, h: h, mask: mask };
+  }
+  var LUT = (function () {
+    var st = [[0, 52, 34, 8], [.3, 128, 88, 26], [.55, 196, 150, 62], [.78, 236, 200, 118], [1, 255, 246, 214]], out = new Uint8ClampedArray(256 * 3);
+    for (var i = 0; i < 256; i++) {
+      var t = i / 255, j = 0; while (j < st.length - 2 && t > st[j + 1][0]) j++;
+      var a = st[j], b = st[j + 1], f = (t - a[0]) / (b[0] - a[0]);
+      for (var c = 1; c < 4; c++) out[i * 3 + c - 1] = a[c] + (b[c] - a[c]) * f;
+    }
+    return out;
+  })();
+  function shade(img, leaf, lx, ly, k, bg) {
+    var N = leaf.N, h = leaf.h, m = leaf.mask, d = img.data;
+    var lz = .85, ll = Math.sqrt(lx * lx + ly * ly + lz * lz); lx /= ll; ly /= ll; lz /= ll;
+    var hx = lx, hy = ly, hz = lz + 1, hl = Math.sqrt(hx * hx + hy * hy + hz * hz); hx /= hl; hy /= hl; hz /= hl;
+    for (var y = 0; y < N; y++) {
+      var y0 = y > 0 ? y - 1 : y, y1 = y < N - 1 ? y + 1 : y;
+      for (var x = 0; x < N; x++) {
+        var i = y * N + x, o = i * 4, a = m[i];
+        if (a <= 0) { if (bg) { d[o] = bg[0]; d[o + 1] = bg[1]; d[o + 2] = bg[2]; d[o + 3] = 255; } else d[o + 3] = 0; continue; }
+        var x0 = x > 0 ? x - 1 : x, x1 = x < N - 1 ? x + 1 : x;
+        var nx = (h[y * N + x0] - h[y * N + x1]) * k, ny = (h[y0 * N + x] - h[y1 * N + x]) * k, nl = Math.sqrt(nx * nx + ny * ny + 1);
+        nx /= nl; ny /= nl; var nz = 1 / nl;
+        var dif = nx * lx + ny * ly + nz * lz; if (dif < 0) dif = 0;
+        var sp = nx * hx + ny * hy + nz * hz; sp = sp > 0 ? Math.pow(sp, 36) : 0;
+        var t = .12 + .62 * dif + .75 * sp; if (t > 1) t = 1;
+        var li = (t * 255) | 0;
+        if (bg) {
+          d[o] = bg[0] + (LUT[li * 3] - bg[0]) * a; d[o + 1] = bg[1] + (LUT[li * 3 + 1] - bg[1]) * a; d[o + 2] = bg[2] + (LUT[li * 3 + 2] - bg[2]) * a; d[o + 3] = 255;
+        } else { d[o] = LUT[li * 3]; d[o + 1] = LUT[li * 3 + 1]; d[o + 2] = LUT[li * 3 + 2]; d[o + 3] = a * 255; }
+      }
+    }
+  }
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // 히어로: 금단청 문양 배경
+  var dc = document.getElementById('dancheong');
+  var C = { meok: '#1E1A17', baek: '#F3EEE2', jang: '#C9472E', jangL: '#E98C6E', seok: '#7C3423', noe: '#2F7A6B', yang: '#6FB08A', sam: '#2D5C8A', sam2: '#7FA6CC', hwang: '#E3B33E', ju: '#B8322A', yeon: '#F2C6B6' };
+  function gold(c, x, y, r) {
+    var g = c.createLinearGradient(x - r, y - r, x + r, y + r);
+    g.addColorStop(0, '#FFF0B8'); g.addColorStop(.35, '#E6BE5C'); g.addColorStop(.6, '#B88A2C'); g.addColorStop(1, '#F7DC8A');
+    return g;
+  }
+  function petal(c, cx, cy, ang, dist, rx, ry, fill, line) {
+    c.save(); c.translate(cx + Math.cos(ang) * dist, cy + Math.sin(ang) * dist); c.rotate(ang + Math.PI / 2);
+    c.beginPath(); c.moveTo(0, -ry); c.bezierCurveTo(rx * 1.2, -ry * .5, rx, ry * .7, 0, ry); c.bezierCurveTo(-rx, ry * .7, -rx * 1.2, -ry * .5, 0, -ry); c.closePath();
+    c.fillStyle = fill; c.fill(); c.lineWidth = line; c.strokeStyle = C.meok; c.stroke();
+    c.restore();
+  }
+  function juhwa(c, x, y, R) {
+    // 바깥 연꽃잎 (장단 → 연분홍 바림)
+    for (var i = 0; i < 12; i++) {
+      var a = i / 12 * Math.PI * 2;
+      var g = c.createRadialGradient(x, y, R * .3, x, y, R);
+      g.addColorStop(0, C.yeon); g.addColorStop(.55, C.jangL); g.addColorStop(1, C.ju);
+      petal(c, x, y, a, R * .66, R * .2, R * .34, g, R * .025);
+    }
+    c.beginPath(); c.arc(x, y, R * .5, 0, 7); c.fillStyle = C.baek; c.fill(); c.lineWidth = R * .03; c.strokeStyle = C.meok; c.stroke();
+    // 안쪽 녹색 잎
+    for (var j = 0; j < 8; j++) {
+      var b = (j + .5) / 8 * Math.PI * 2, g2 = c.createRadialGradient(x, y, R * .1, x, y, R * .5);
+      g2.addColorStop(0, '#CFE7D2'); g2.addColorStop(1, C.noe);
+      petal(c, x, y, b, R * .32, R * .1, R * .16, g2, R * .02);
+    }
+    c.beginPath(); c.arc(x, y, R * .2, 0, 7); c.fillStyle = C.seok; c.fill(); c.stroke();
+    c.beginPath(); c.arc(x, y, R * .12, 0, 7); c.fillStyle = gold(c, x, y, R * .12); c.fill();
+    // 금선
+    c.beginPath(); c.arc(x, y, R * .5, 0, 7); c.lineWidth = R * .022; c.strokeStyle = gold(c, x, y, R * .5); c.stroke();
+    c.beginPath(); c.arc(x, y, R * .93, 0, 7); c.lineWidth = R * .02; c.stroke();
+  }
+  function beam(c, W, y, H, off) {
+    // 바탕 뇌록
+    c.fillStyle = C.noe; c.fillRect(0, y, W, H);
+    var R = H * .42, step = R * 2.9;
+    for (var x = -step + (off % step); x < W + step; x += step) {
+      // 휘: 세로 줄무늬 (먹-백-양록-삼청-백-먹)
+      var hx = x + step / 2, cols = [C.meok, C.baek, C.sam2, C.sam, C.baek, C.yang, C.noe, C.baek, C.meok], w = H * .035;
+      for (var k = 0; k < cols.length; k++) { c.fillStyle = cols[k]; c.fillRect(hx - cols.length * w / 2 + k * w, y, w, H); }
+      // 휘 사이 금 원점
+      c.beginPath(); c.arc(hx, y + H / 2, H * .07, 0, 7); c.fillStyle = gold(c, hx, y + H / 2, H * .07); c.fill();
+      c.lineWidth = H * .012; c.strokeStyle = C.meok; c.stroke();
+      // 반쪽 녹화 (위아래)
+      c.save(); c.beginPath(); c.rect(x - step / 2, y, step, H); c.clip();
+      [y, y + H].forEach(function (yy) {
+        c.beginPath(); c.arc(x, yy, R * .55, 0, 7); c.fillStyle = C.sam; c.fill(); c.lineWidth = H * .012; c.strokeStyle = C.meok; c.stroke();
+        c.beginPath(); c.arc(x, yy, R * .36, 0, 7); c.fillStyle = C.baek; c.fill(); c.stroke();
+      });
+      c.restore();
+      juhwa(c, x, y + H / 2, R);
+    }
+    // 테두리: 먹 · 백 · 금
+    [[0, C.meok, .03], [.03, C.baek, .02], [.05, '#C9A24A', .02]].forEach(function (b) {
+      c.fillStyle = b[1]; c.fillRect(0, y + H * b[0], W, H * b[2]); c.fillRect(0, y + H - H * b[0] - H * b[2], W, H * b[2]);
+    });
+  }
+  function drawDancheong() {
+    if (!dc) return;
+    var r = dc.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var W = Math.max(1, Math.round(r.width * dpr)), H = Math.max(1, Math.round(r.height * dpr));
+    if (dc.width === W && dc.height === H) return;
+    dc.width = W; dc.height = H;
+    var c = dc.getContext('2d');
+    c.fillStyle = C.seok; c.fillRect(0, 0, W, H);
+    var BH = Math.max(150 * dpr, Math.min(W / 5.2, 240 * dpr)), gap = BH * .16, row = 0;
+    for (var y = -BH * .35; y < H; y += BH + gap, row++) {
+      beam(c, W, y, BH, row % 2 ? BH * 1.45 : 0);
+      // 석간주 사이 띠의 금선
+      c.fillStyle = '#C9A24A'; c.fillRect(0, y + BH + gap / 2 - dpr, W, 2 * dpr);
+    }
+  }
+  drawDancheong();
+  var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(drawDancheong, 150); });
+
+  // 제품 카드 배경 (사진이 없을 때 보이는 질감)
+  function drawCard(cv) {
+    var kind = cv.getAttribute('data-tex'), seed = +cv.getAttribute('data-seed'), W = 360, H = 450;
+    cv.width = W; cv.height = H;
+    var c = cv.getContext('2d'), r = rng(seed);
+    var g = c.createRadialGradient(W * .5, H * .45, 10, W * .5, H * .5, W * .9);
+    g.addColorStop(0, '#2B2119'); g.addColorStop(1, '#120D0A');
+    c.fillStyle = g; c.fillRect(0, 0, W, H);
+    if (kind === 'leaf') {
+      var n = 240, lf = makeLeaf(n, seed), im = c.createImageData(n, n);
+      shade(im, lf, -.4, -.5, 46, null);
+      var off = document.createElement('canvas'); off.width = n; off.height = n; off.getContext('2d').putImageData(im, 0, 0);
+      c.save(); c.translate(W / 2, H / 2); c.rotate(.12); c.shadowColor = 'rgba(0,0,0,.6)'; c.shadowBlur = 30; c.shadowOffsetY = 14;
+      c.drawImage(off, -n * .55, -n * .55, n * 1.1, n * 1.1); c.restore();
+    } else if (kind === 'flake') {
+      for (var i = 0; i < 160; i++) {
+        var x = W * (.5 + (r() - .5) * .9 * Math.sqrt(r())), y = H * (.5 + (r() - .5) * .9 * Math.sqrt(r())), s = 4 + r() * 22, sides = 4 + (r() * 4 | 0);
+        var tone = (60 + r() * 195) | 0;
+        c.fillStyle = 'rgb(' + LUT[tone * 3] + ',' + LUT[tone * 3 + 1] + ',' + LUT[tone * 3 + 2] + ')';
+        c.beginPath();
+        for (var j = 0; j < sides; j++) { var a = j / sides * Math.PI * 2 + r() * .6, rr = s * (.4 + r() * .6); j ? c.lineTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr) : c.moveTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr); }
+        c.closePath(); c.fill();
+      }
+    } else {
+      for (var p = 0; p < 9000; p++) {
+        var ang = r() * Math.PI * 2, rad = Math.pow(r(), .7) * W * .38, px = W / 2 + Math.cos(ang) * rad * 1.15, py = H * .55 + Math.sin(ang) * rad * .55;
+        var tn = (40 + r() * 215 * (1 - rad / (W * .45))) | 0; if (tn < 0) tn = 0;
+        c.fillStyle = 'rgb(' + LUT[tn * 3] + ',' + LUT[tn * 3 + 1] + ',' + LUT[tn * 3 + 2] + ')';
+        c.fillRect(px, py - (1 - rad / (W * .38)) * 70, 1.6, 1.6);
+      }
+    }
+  }
+  document.querySelectorAll('canvas[data-tex]').forEach(drawCard);
+})();
+</script>
+</body>
+</html>

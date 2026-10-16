@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>한일금박</title>
 <meta name="claude:viewport-fit-sides" content="cover">
+<link rel="alternate" hreflang="ko" href="https://www.hanilgoldleaf.com/">
+<link rel="alternate" hreflang="en" href="https://www.hanilgoldleaf.com/en/">
 <meta name="description" content="1965년 설립, 국내 최초·국내 최대 금박 제조 기업 한일금박. 금박·금설·금분 제조. 의약품·식품첨가물·화장품·공예·건축 분야에 금박을 공급합니다.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -339,6 +341,17 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
 .qform .act { display: flex; gap: 10px; flex-wrap: wrap; }
 .qmsg { font-size: 14px; color: var(--gold); min-height: 1.4em; }
 
+/* ---------- 언어 선택 KR / EN ---------- */
+.lang { display: flex; align-items: center; gap: 2px; font-family: var(--f-mono); font-size: 12px; letter-spacing: .06em; padding-left: 14px; border-left: 1px solid rgba(215,178,90,.25); }
+.lang a { color: var(--on-lacquer-2); text-decoration: none; padding: 6px 6px; border-radius: 4px; }
+.lang a:hover { color: var(--gold-hi); }
+.lang a[aria-current] { color: var(--gold-hi); font-weight: 500; }
+.lang i { font-style: normal; color: rgba(241,235,221,.3); }
+@media (max-width: 1060px) {
+  .lang { order: 1; margin-left: auto; border-left: 0; padding-left: 0; font-size: 13px; }
+  .menu-btn { order: 2; }
+}
+
 /* ---------- 문의하기 ---------- */
 .nav a { white-space: nowrap; }
 .inq { width: min(640px, calc(100% - 24px)); max-height: calc(100dvh - 24px); padding: 0; border: 0; border-radius: 10px; background: var(--surface); color: var(--ink); box-shadow: 0 24px 80px rgba(0,0,0,.35); overflow: auto; }
@@ -379,6 +392,7 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
       <a class="shop" href="https://hanilgoldleaf.cafe24.com/" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9h14l-1.4 9.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8L5 9Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 9 12 4l3 5M3.5 9h17M10 12.5v4M14 12.5v4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>온라인몰</a>
       <a class="call" href="#contact" data-inq>문의하기</a>
     </nav>
+    <div class="lang" role="group" aria-label="Language"><a href="./" lang="ko" hreflang="ko" aria-current="true">KR</a><i aria-hidden="true">/</i><a href="en/" lang="en" hreflang="en">EN</a></div>
   </div>
 </header>
 
