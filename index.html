@@ -411,8 +411,8 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
         <article class="cat">
           <figure class="tex"><canvas data-tex="leaf" data-seed="11"></canvas><img src="img/geumbak-card.png" alt="한일금박 금박 제품" loading="lazy" onerror="this.remove()"><span class="tag">GOLD LEAF</span></figure>
           <h3>금박 <small>金箔</small></h3>
-          <p>금을 두드려 얇게 편 낱장 금박입니다. 공진단 코팅용 4절·6절, 불상과 공예품에 입히는 개금용, 야외 작업용 단청용, 상패와 카드용까지 규격별로 생산합니다.</p>
-          <ul><li>의약품</li><li>공예·개금</li><li>단청</li><li>상패·카드</li></ul>
+          <p>금을 두드려 얇게 편 낱장 금박입니다. 불상과 공예품에 입히는 개금용, 야외 작업용 단청용, 공진단 코팅용 4절·6절, 상패와 카드용까지 규격별로 생산합니다.</p>
+          <ul><li>공예·개금</li><li>단청</li><li>의약품</li><li>상패·카드</li></ul>
         </article>
         <article class="cat">
           <figure class="tex"><canvas data-tex="flake" data-seed="23"></canvas><img src="img/geumseol.png" alt="한일금박 금설 제품" loading="lazy" onerror="this.remove()"><span class="tag">GOLD FLAKES</span></figure>
@@ -443,11 +443,11 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
             <table>
               <thead><tr><th>구분</th><th>크기</th><th>포장</th><th>주요 용도</th></tr></thead>
               <tbody id="specRows">
-                <tr data-k="s6" data-photo="img/geumbak-6jeol.png" tabindex="0"><td>6절</td><td class="mono">3.7 × 5.5 cm</td><td class="mono">600매/속</td><td>작은 공진단 코팅</td></tr>
-                <tr data-k="s4" data-photo="img/geumbak-4jeol.png" tabindex="0"><td>4절</td><td class="mono">5.5 × 5.5 cm</td><td class="mono">400매/속</td><td>공진단 코팅</td></tr>
                 <tr data-k="gg" data-photo="img/geumbak-gaegeum-dancheong.png" tabindex="0"><td>개금용</td><td class="mono">11 × 11 cm</td><td class="mono">100매/속</td><td>불상, 공예품</td></tr>
                 <tr data-k="gg" data-photo="img/geumbak-gaegeum-dancheong.png" tabindex="0"><td>단청용</td><td class="mono">11 × 11 cm</td><td class="mono">100매/속</td><td>야외 단청 (종이에 눌러 바람에 날리지 않음)</td></tr>
-                <tr data-k="cd" data-photo="img/geumbak-card.png" data-cap="카드용 금박" tabindex="0"><td>카드용</td><td class="mono">11.9 × 18.3 cm<br>12.5 × 18.3 cm</td><td class="mono">100매/속</td><td>상패, 카드</td></tr>
+                <tr data-k="s4" data-photo="img/geumbak-4jeol.png" tabindex="0"><td>4절</td><td class="mono">5.5 × 5.5 cm</td><td class="mono">400매/속</td><td>공진단 코팅</td></tr>
+                <tr data-k="s6" data-photo="img/geumbak-6jeol.png" tabindex="0"><td>6절</td><td class="mono">3.7 × 5.5 cm</td><td class="mono">600매/속</td><td>작은 공진단 코팅</td></tr>
+                <tr data-k="cd" data-photo="img/geumbak-card.png" data-cap="카드용 금박" tabindex="0"><td>카드용</td><td class="mono">11 × 11 cm<br>11 × 15 cm<br>13 × 13 cm<br>11 × 17.4 cm<br>11.9 × 18.3 cm<br>12.5 × 18.3 cm</td><td class="mono">100매/속</td><td>상패, 카드</td></tr>
                 <tr data-photo="img/geumseol-package.png" data-cap="금설과 포장" tabindex="0"><td>금설</td><td class="mono">2~16 mesh</td><td class="mono">최소 2 g<br>1 g씩 추가 가능</td><td>음식 장식, 화장품</td></tr>
                 <tr data-photo="img/geumbun.png" data-cap="금분과 포장" tabindex="0"><td>금분</td><td class="mono">—</td><td class="mono">2 g</td><td>글씨, 그림, 화장품, 공예 마감</td></tr>
               </tbody>
@@ -467,14 +467,14 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
               </defs>
               <rect x="10" y="10" width="380" height="190" fill="url(#cm)"/>
               <!-- 1 cm = 10 units, 바닥선 y=200 -->
-              <g data-k="s6"><rect class="gl" x="18" y="145" width="37" height="55"/><text class="nm" x="18" y="137">6절</text><text x="18" y="214">3.7×5.5</text></g>
-              <g data-k="s4"><rect class="gl" x="68" y="145" width="55" height="55"/><text class="nm" x="68" y="137">4절</text><text x="68" y="214">5.5×5.5</text></g>
-              <g data-k="gg"><rect class="gl" x="136" y="90" width="110" height="110"/><text class="nm" x="136" y="82">개금용 · 단청용</text><text x="136" y="214">11×11</text></g>
-              <g data-k="cd"><rect class="gl" x="258" y="17" width="125" height="183"/><rect x="258" y="17" width="119" height="183" fill="none" stroke="var(--gold)" stroke-width=".5" stroke-dasharray="2 2"/><text class="nm" x="262" y="30">카드용</text><text x="258" y="214">12.5(11.9)×18.3</text></g>
+              <g data-k="gg"><rect class="gl" x="18" y="90" width="110" height="110"/><text class="nm" x="18" y="82">개금용 · 단청용</text><text x="18" y="214">11×11</text></g>
+              <g data-k="s4"><rect class="gl" x="142" y="145" width="55" height="55"/><text class="nm" x="142" y="137">4절</text><text x="142" y="214">5.5×5.5</text></g>
+              <g data-k="s6"><rect class="gl" x="210" y="145" width="37" height="55"/><text class="nm" x="210" y="137">6절</text><text x="210" y="214">3.7×5.5</text></g>
+              <g data-k="cd"><rect class="gl" x="261" y="17" width="125" height="183"/><text class="nm" x="265" y="30">카드용</text><text x="261" y="214">최대 12.5×18.3</text></g>
               <text x="10" y="230">눈금 1칸 = 1 cm</text>
             </svg>
           </div>
-          <p class="scale-cap">모든 금박을 같은 비율로 그렸습니다. 카드용의 점선은 11.9 cm 폭 규격입니다.</p>
+          <p class="scale-cap">모든 금박을 같은 비율로 그렸습니다. 카드용은 가장 큰 12.5 × 18.3 cm 규격으로 그렸습니다.</p>
         </div>
       </div>
     </div>
