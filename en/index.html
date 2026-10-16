@@ -231,6 +231,8 @@ td:first-child { font-weight: 500; white-space: nowrap; }
 .scale .gl { fill: var(--gold-soft); stroke: var(--gold); stroke-width: .6; transition: fill .2s; }
 .scale g.on .gl, .scale g:hover .gl { fill: url(#gfill); }
 .scale text { fill: var(--ink-2); font-family: var(--f-mono); font-size: 7px; }
+.scale .dl { fill: none; stroke: var(--gold); stroke-width: .6; stroke-dasharray: 2.5 2; }
+.scale text.sz { font-size: 6px; fill: var(--ink); paint-order: stroke; stroke: var(--surface); stroke-width: 1.6px; stroke-linejoin: round; }
 .scale text.nm { fill: var(--ink); font-family: var(--f-body); font-size: 8.5px; font-weight: 500; }
 .scale-cap { margin-top: 12px; font-size: 13px; color: var(--ink-2); }
 @media (max-width: 960px) { .spec { grid-template-columns: minmax(0, 1fr); } .spec-head, .spec-left, .spec .scale { grid-column: 1; grid-row: auto; } }
@@ -504,11 +506,11 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
               <g data-k="gg"><rect class="gl" x="18" y="90" width="110" height="110"/><text class="nm" x="18" y="82">Gilding · Dancheong</text><text x="18" y="214">11×11</text></g>
               <g data-k="s4"><rect class="gl" x="142" y="145" width="55" height="55"/><text class="nm" x="142" y="137">4-cut</text><text x="142" y="214">5.5×5.5</text></g>
               <g data-k="s6"><rect class="gl" x="210" y="145" width="37" height="55"/><text class="nm" x="210" y="137">6-cut</text><text x="210" y="214">3.7×5.5</text></g>
-              <g data-k="cd"><rect class="gl" x="261" y="17" width="125" height="183"/><text class="nm" x="265" y="30">Card</text><text x="261" y="214">max 12.5×18.3</text></g>
+              <g data-k="cd"><rect class="gl" x="261" y="17" width="125" height="183"/><rect class="dl" x="261" y="17" width="119" height="183"/><text class="sz" x="377" y="24" text-anchor="end">11.9×18.3</text><rect class="dl" x="261" y="26" width="110" height="174"/><text class="sz" x="368" y="34" text-anchor="end">11×17.4</text><rect class="dl" x="261" y="50" width="110" height="150"/><text class="sz" x="368" y="58" text-anchor="end">11×15</text><text class="nm" x="265" y="193">Card</text><text x="261" y="214">12.5×18.3 (solid)</text></g>
               <text x="10" y="230">1 grid square = 1 cm</text>
             </svg>
           </div>
-          <p class="scale-cap">All sheets are drawn to the same scale. Card leaf is shown at its largest size, 12.5 × 18.3 cm.</p>
+          <p class="scale-cap">All sheets are drawn to the same scale. The four card sizes are overlaid: the largest, 12.5 × 18.3 cm, is solid and the others are dashed.</p>
         </div>
       </div>
     </div>
