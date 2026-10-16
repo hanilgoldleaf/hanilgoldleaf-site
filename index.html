@@ -293,6 +293,42 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
   bottom: calc(20px + env(safe-area-inset-bottom, 0px)); z-index: 40;
   background: var(--gold-hi); color: #17120E; padding: 10px 18px; border-radius: 999px; font-size: 14px; font-weight: 500;
 }
+
+/* ---------- Q&A ---------- */
+#qna [hidden] { display: none !important; }
+.qna-top { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+.qna-top .sec-head { margin-bottom: 0; }
+.qbtn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 999px; border: 1px solid var(--gold); background: transparent; color: var(--ink); font: 500 15px var(--f-body); cursor: pointer; }
+.qbtn:hover { background: var(--gold-soft); }
+.qbtn.solid { background: var(--gold-hi); border-color: var(--gold-hi); color: #17120E; }
+.qlist { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+.qlist > li { border-bottom: 1px solid var(--line); }
+.qhead { width: 100%; display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 4px 16px; align-items: center; padding: 18px 4px; background: none; border: 0; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.qhead .t { font-size: 16px; font-weight: 500; overflow-wrap: anywhere; }
+.qhead .m { grid-column: 1; font-size: 13px; color: var(--ink-2); }
+.qtag { grid-row: 1 / span 2; grid-column: 2; font-family: var(--f-mono); font-size: 12px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-2); white-space: nowrap; }
+.qtag.done { border-color: var(--gold); color: var(--gold); }
+.qbody { padding: 0 4px 22px; display: grid; gap: 14px; }
+.qbody .q { white-space: pre-wrap; }
+.qbody .a { white-space: pre-wrap; background: var(--gold-soft); border-left: 3px solid var(--gold); padding: 14px 16px; border-radius: var(--r); }
+.qbody .a b { display: block; font-size: 13px; color: var(--gold); margin-bottom: 4px; }
+.qlock { display: flex; gap: 8px; flex-wrap: wrap; }
+.qempty { padding: 28px 4px; color: var(--ink-2); }
+.qmore { margin-top: 18px; text-align: center; }
+.qform { display: grid; gap: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(18px, 3vw, 28px); margin-bottom: 24px; }
+.qform[hidden] { display: none; }
+.qform .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+.qform label { display: grid; gap: 6px; font-size: 14px; font-weight: 500; }
+.qform label small { font-weight: 400; color: var(--ink-2); }
+.qform input[type=text], .qform input[type=password], .qform input[type=tel], .qform textarea, .qlock input {
+  width: 100%; font: 16px var(--f-body); color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); padding: 11px 12px; }
+.qlock input { width: auto; flex: 1 1 140px; }
+.qform textarea { min-height: 140px; resize: vertical; }
+.qform .chk { display: flex; align-items: center; gap: 8px; font-weight: 400; }
+.qform .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.qform .note { font-size: 13px; color: var(--ink-2); }
+.qform .act { display: flex; gap: 10px; flex-wrap: wrap; }
+.qmsg { font-size: 14px; color: var(--gold); min-height: 1.4em; }
 </style>
 </head>
 <body>
@@ -308,6 +344,7 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
       <a href="#uses">사용 분야</a>
       <a href="#about">회사소개</a>
       <a href="#history">연혁</a>
+      <a href="#qna">Q&amp;A</a>
       <a href="#contact">오시는 길</a>
       <a class="shop" href="https://hanilgoldleaf.cafe24.com/" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9h14l-1.4 9.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8L5 9Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 9 12 4l3 5M3.5 9h17M10 12.5v4M14 12.5v4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>온라인몰</a>
       <a class="call" href="tel:027338788">문의 02-733-8788</a>
@@ -480,6 +517,40 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
     </div>
   </section>
 
+  <section class="sec" id="qna" aria-labelledby="qnaTitle">
+    <div class="wrap">
+      <div class="qna-top">
+        <div class="sec-head">
+          <span class="eyebrow">Q&amp;A</span>
+          <h2 id="qnaTitle">묻고 답하기</h2>
+          <p>제품, 규격, 주문에 대해 궁금한 점을 남겨 주세요. 확인 후 답변과 함께 게시됩니다.</p>
+        </div>
+        <button class="qbtn solid" type="button" id="qWriteBtn" aria-expanded="false" aria-controls="qForm">질문 남기기</button>
+      </div>
+
+      <form class="qform" id="qForm" hidden novalidate>
+        <div class="two">
+          <label>이름 <input type="text" name="name" maxlength="20" required autocomplete="name"></label>
+          <label>연락처 <small>선택 · 답변 연락용, 공개되지 않아요</small><input type="tel" name="contact" maxlength="60" autocomplete="tel"></label>
+        </div>
+        <label>제목 <input type="text" name="title" maxlength="80" required></label>
+        <label>내용 <textarea name="body" maxlength="2000" required></textarea></label>
+        <div class="two">
+          <label>비밀번호 <small>4자리 이상 · 비밀글 확인용</small><input type="password" name="pw" minlength="4" maxlength="30" required autocomplete="new-password"></label>
+          <label>자동 입력 방지 <small id="qCapQ"></small><input type="text" name="cap" inputmode="numeric" maxlength="3" required></label>
+        </div>
+        <label class="chk"><input type="checkbox" name="secret"> 비밀글로 남기기 (제목만 보이고, 내용과 답변은 비밀번호로 확인)</label>
+        <div class="hp" aria-hidden="true"><label>홈페이지 <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+        <p class="note">링크, 광고·성인성 문구가 들어간 글은 등록되지 않습니다. 모든 글은 관리자 확인 후 게시됩니다.</p>
+        <div class="act"><button class="qbtn solid" type="submit">등록하기</button><button class="qbtn" type="button" id="qCancel">취소</button></div>
+        <p class="qmsg" id="qMsg" role="status"></p>
+      </form>
+
+      <ul class="qlist" id="qList" aria-live="polite"><li class="qempty">질문을 불러오는 중입니다…</li></ul>
+      <div class="qmore"><button class="qbtn" type="button" id="qMore" hidden>더 보기</button></div>
+    </div>
+  </section>
+
   <section class="contact sec" id="contact" aria-labelledby="contactTitle">
     <div class="wrap">
       <div class="sec-head">
@@ -520,7 +591,7 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
 <footer>
   <div class="wrap">
     <span>한일금박공업사 · 대표 정세철 · Copyright © 2026 한일금박 All rights reserved.</span>
-    <nav aria-label="하단 메뉴"><a href="#products">제품소개</a><a href="#about">회사소개</a><a href="#contact">문의</a><a href="#home">맨 위로</a></nav>
+    <nav aria-label="하단 메뉴"><a href="#products">제품소개</a><a href="#about">회사소개</a><a href="#qna">Q&amp;A</a><a href="#contact">문의</a><a href="#home">맨 위로</a></nav>
   </div>
 </footer>
 
@@ -538,6 +609,88 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
   document.querySelectorAll('#nav a').forEach(function (a) {
     a.addEventListener('click', function () { top.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); });
   });
+
+  // ---------- Q&A (Supabase) ----------
+  (function () {
+    var SB_URL = 'https://hsfnkregnbxoyoollxwp.supabase.co', SB_KEY = 'sb_publishable_X_oSmjFVZleVJRKSOeQ72Q_jhWNpk1e';   // Supabase 프로젝트 주소와 공개 키
+    var list = document.getElementById('qList'), more = document.getElementById('qMore');
+    var form = document.getElementById('qForm'), wbtn = document.getElementById('qWriteBtn'), msg = document.getElementById('qMsg');
+    var PAGE = 10, offset = 0, capA = 0;
+    function hdr(extra) {
+      var h = { apikey: SB_KEY, 'Content-Type': 'application/json' };
+      if (SB_KEY.indexOf('eyJ') === 0) h.Authorization = 'Bearer ' + SB_KEY;
+      for (var k in extra) h[k] = extra[k];
+      return h;
+    }
+    function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+    function ymd(t) { var d = new Date(t); return d.getFullYear() + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + String(d.getDate()).padStart(2, '0'); }
+    function mask(n) { n = String(n || ''); return n.length <= 1 ? n : n[0] + '*'.repeat(Math.min(n.length - 1, 3)); }
+    function answerBox(a) { var d = el('div', 'a'); d.appendChild(el('b', null, '한일금박 답변')); d.appendChild(document.createTextNode(a)); return d; }
+    function item(q) {
+      var li = el('li'), head = el('button', 'qhead'), body = el('div', 'qbody');
+      head.type = 'button'; head.setAttribute('aria-expanded', 'false'); body.hidden = true;
+      head.appendChild(el('span', 't', (q.is_secret ? '🔒 ' : '') + q.title));
+      head.appendChild(el('span', 'm', mask(q.name) + ' · ' + ymd(q.created_at)));
+      head.appendChild(el('span', 'qtag' + (q.answered_at ? ' done' : ''), q.answered_at ? '답변완료' : '답변대기'));
+      if (q.is_secret) {
+        var f = el('form', 'qlock'), pw = el('input'), ok = el('button', 'qbtn', '확인'), m = el('p', 'qmsg');
+        pw.type = 'password'; pw.placeholder = '비밀번호'; pw.setAttribute('aria-label', '비밀번호'); ok.type = 'submit';
+        f.appendChild(pw); f.appendChild(ok); body.appendChild(f); body.appendChild(m);
+        f.addEventListener('submit', function (e) {
+          e.preventDefault(); m.textContent = '확인 중…';
+          fetch(SB_URL + '/rest/v1/rpc/qna_open', { method: 'POST', headers: hdr(), body: JSON.stringify({ p_id: q.id, p_pw: pw.value }) })
+            .then(function (r) { return r.json(); })
+            .then(function (rows) {
+              if (!rows || !rows.length) { m.textContent = '비밀번호가 맞지 않습니다.'; return; }
+              body.textContent = ''; body.appendChild(el('p', 'q', rows[0].body));
+              if (rows[0].answer) body.appendChild(answerBox(rows[0].answer));
+            }).catch(function () { m.textContent = '잠시 후 다시 시도해 주세요.'; });
+        });
+      } else {
+        body.appendChild(el('p', 'q', q.body));
+        if (q.answer) body.appendChild(answerBox(q.answer));
+      }
+      head.addEventListener('click', function () { body.hidden = !body.hidden; head.setAttribute('aria-expanded', body.hidden ? 'false' : 'true'); });
+      li.appendChild(head); li.appendChild(body); return li;
+    }
+    function load() {
+      if (!SB_URL) { list.innerHTML = ''; list.appendChild(el('li', 'qempty', '게시판을 준비하고 있습니다. 문의는 02-733-8788로 연락 주세요.')); wbtn.hidden = true; return; }
+      fetch(SB_URL + '/rest/v1/qna_public?select=*&order=created_at.desc&limit=' + (PAGE + 1) + '&offset=' + offset, { headers: hdr() })
+        .then(function (r) { if (!r.ok) throw r; return r.json(); })
+        .then(function (rows) {
+          if (offset === 0) list.innerHTML = '';
+          if (!rows.length && offset === 0) list.appendChild(el('li', 'qempty', '아직 등록된 질문이 없습니다. 첫 질문을 남겨 주세요.'));
+          rows.slice(0, PAGE).forEach(function (q) { list.appendChild(item(q)); });
+          more.hidden = rows.length <= PAGE; offset += PAGE;
+        }).catch(function () { list.innerHTML = ''; list.appendChild(el('li', 'qempty', '목록을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.')); });
+    }
+    function newCap() { var a = 2 + Math.floor(Math.random() * 8), b = 1 + Math.floor(Math.random() * 9); capA = a + b; document.getElementById('qCapQ').textContent = a + ' + ' + b + ' = ?'; form.cap.value = ''; }
+    var BAD = /(https?:\/\/|www\.|\.(com|net|kr|xyz|top|io|me|ly)(\/|\s|$)|bit\.ly|t\.me|카지노|바카라|토토|슬롯|도박|먹튀|성인|야동|섹스|섹시|조건만남|출장안마|오피걸|룸살롱|대출|코인|리딩방|텔레그램|비아그라|casino|porn|sex|viagra|loan|crypto)/i;
+    var opened = 0;
+    function toggle(open) { form.hidden = !open; wbtn.setAttribute('aria-expanded', open ? 'true' : 'false'); if (open) { newCap(); opened = Date.now(); msg.textContent = ''; form.name.focus(); } }
+    wbtn.addEventListener('click', function () { toggle(form.hidden); });
+    document.getElementById('qCancel').addEventListener('click', function () { toggle(false); });
+    more.addEventListener('click', load);
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var v = { name: form.name.value.trim(), contact: form.contact.value.trim(), title: form.title.value.trim(), body: form.body.value.trim(), pw: form.pw.value };
+      if (form.website.value || Date.now() - opened < 4000) { msg.textContent = '잠시 후 다시 시도해 주세요.'; return; }
+      if (!v.name || v.title.length < 2 || v.body.length < 5) { msg.textContent = '이름, 제목, 내용을 입력해 주세요.'; return; }
+      if (v.pw.length < 4) { msg.textContent = '비밀번호를 4자리 이상 입력해 주세요.'; return; }
+      if (parseInt(form.cap.value, 10) !== capA) { msg.textContent = '자동 입력 방지 숫자가 맞지 않습니다.'; newCap(); return; }
+      if (BAD.test([v.name, v.title, v.body].join(' '))) { msg.textContent = '링크나 광고성 문구는 넣을 수 없습니다.'; return; }
+      msg.textContent = '등록 중…';
+      fetch(SB_URL + '/rest/v1/qna', { method: 'POST', headers: hdr({ Prefer: 'return=minimal' }),
+        body: JSON.stringify({ name: v.name, contact: v.contact || null, title: v.title, body: v.body, is_secret: form.secret.checked, pw_hash: v.pw }) })
+        .then(function (r) {
+          if (!r.ok) return r.json().then(function (j) { throw new Error(j && j.message || ''); });
+          form.reset(); form.hidden = true; wbtn.setAttribute('aria-expanded', 'false');
+          show('등록되었습니다. 확인 후 답변과 함께 게시됩니다.');
+        })
+        .catch(function (err) { msg.textContent = (err && err.message && /[가-힣]/.test(err.message)) ? err.message : '등록하지 못했습니다. 잠시 후 다시 시도해 주세요.'; newCap(); });
+    });
+    load();
+  })();
 
   // ---------- 복사 ----------
   var toast = document.getElementById('toast'), tt;
