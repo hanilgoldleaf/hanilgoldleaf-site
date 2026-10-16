@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>한일금박 | 페이지 이동</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #17120E; color: #F1EBDD; font: 16px/1.6 system-ui, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; text-align: center; padding: 24px; }
+  a { color: #D7B25A; }
+</style>
+<script>
+  // 예전 사이트 주소(공지사항·문의 등)로 들어오면 새 홈페이지의 맞는 곳으로 보냄
+  (function () {
+    var p = location.pathname.toLowerCase(), base = p.indexOf('/en') === 0 ? '/en/' : '/';
+    var hash = /qna|board|19|18|notice|문의|공지/.test(decodeURIComponent(p)) ? '#qna'
+      : /product|제품/.test(decodeURIComponent(p)) ? '#products'
+      : /company|about|회사|overview/.test(decodeURIComponent(p)) ? '#about' : '';
+    location.replace(base + hash);
+  })();
+</script>
+</head>
+<body>
+  <p>홈페이지가 새로 바뀌었습니다. 잠시 후 이동합니다.<br><a href="/">한일금박 홈페이지로 가기</a></p>
+</body>
+</html>
