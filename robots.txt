@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /admin.html
 Disallow: /preview.html
+Disallow: /label.html
 
 Sitemap: https://www.hanilgoldleaf.com/sitemap.xml

@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>한일금박 주소 라벨</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+:root { --ink:#1d1a16; --muted:#6b645a; --line:#ddd6ca; --gold:#a8812f; --bg:#f7f4ee; --red:#b3261e; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; font-size: 15px; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 20px 16px 60px; }
+h1 { font-size: 22px; margin: 0 0 4px; }
+.sub { color: var(--muted); margin: 0 0 18px; font-size: 14px; }
+.card { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin-bottom: 14px; }
+.drop { border: 2px dashed var(--gold); border-radius: 10px; padding: 26px 16px; text-align: center; cursor: pointer; background: #fffdf8; }
+.drop.over { background: #f6ecd6; }
+.drop b { font-size: 17px; }
+.row { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+label.opt { display: inline-flex; gap: 6px; align-items: center; }
+input[type=number] { width: 90px; padding: 5px 6px; font: inherit; }
+button { font: inherit; padding: 9px 16px; border-radius: 8px; border: 1px solid var(--line); background: #fff; cursor: pointer; }
+button.primary { background: var(--gold); border-color: var(--gold); color: #fff; font-weight: 700; }
+button:disabled { opacity: .5; cursor: default; }
+.msg { margin-top: 10px; font-size: 14px; color: var(--muted); }
+.msg.err { color: var(--red); }
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; min-width: 860px; font-size: 14px; }
+th, td { border-bottom: 1px solid var(--line); padding: 6px 5px; text-align: left; vertical-align: top; }
+th { background: #faf7f1; font-weight: 700; white-space: nowrap; }
+td input[type=text] { width: 100%; font: inherit; padding: 4px 5px; border: 1px solid transparent; border-radius: 4px; background: transparent; }
+td input[type=text]:focus { border-color: var(--gold); background: #fff; outline: none; }
+td.c { text-align: center; }
+td .amt { width: 100px; }
+td input[data-k=name] { min-width: 120px; } td input[data-k=tel] { min-width: 125px; } td input[data-k=prods] { min-width: 120px; }
+.help { font-size: 13px; color: var(--muted); line-height: 1.7; }
+.help ol { margin: 6px 0 0; padding-left: 20px; }
+#preview { display: flex; flex-wrap: wrap; gap: 12px; }
+#preview .label { box-shadow: 0 1px 4px rgba(0,0,0,.18); background: #fff; }
+
+/* ---------- 라벨 (100 × 70 mm) ---------- */
+.label { width: 100mm; height: 70mm; padding: 3.5mm 4.5mm 3mm; display: flex; flex-direction: column; overflow: hidden; color: #000; background: #fff; }
+.label .from { font-size: 7.5pt; line-height: 1.35; border-bottom: 0.3mm solid #000; padding-bottom: 1.6mm; }
+.label .from b { font-size: 8.5pt; }
+.label .to-h { font-size: 8pt; margin-top: 2mm; }
+.label .name { font-size: 19pt; font-weight: 800; line-height: 1.15; margin-top: .6mm; }
+.label .name small { font-size: 11pt; font-weight: 400; }
+.label .tel { font-size: 13pt; font-weight: 700; margin-top: .8mm; letter-spacing: .02em; }
+.label .addr { font-size: 11.5pt; line-height: 1.32; margin-top: 1.4mm; flex: 1; overflow: hidden; word-break: keep-all; overflow-wrap: anywhere; }
+.label .addr .zip { font-weight: 800; }
+.label .foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 2mm; font-size: 7pt; line-height: 1.3; }
+.label .foot .info { overflow: hidden; max-height: 9mm; }
+.label .ins { flex: none; border: 0.5mm solid #000; padding: .8mm 2mm; text-align: center; font-size: 8pt; font-weight: 700; line-height: 1.2; }
+.label .ins b { display: block; font-size: 12pt; }
+.label.nofrom .to-h { margin-top: 0; }
+.label.nofrom .name { font-size: 22pt; }
+.label.nofrom .addr { font-size: 13pt; }
+
+#print { display: none; }
+@page { size: 100mm 70mm; margin: 0; }
+@media print {
+  body { background: #fff; }
+  .wrap { display: none; }
+  #print { display: block; }
+  #print .label { page-break-after: always; break-after: page; }
+  #print .label:last-child { page-break-after: auto; break-after: auto; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>주소 라벨 출력</h1>
+  <p class="sub">카페24 주문 엑셀을 올리거나 자주 보내는 곳을 골라 받는 분 라벨을 뽑습니다. (100 × 70 mm) 파일은 이 컴퓨터 안에서만 읽고 어디에도 전송하지 않습니다.</p>
+
+  <div class="card">
+    <div class="drop" id="drop">
+      <b>주문 엑셀 파일을 여기에 끌어다 놓거나 눌러서 선택</b>
+      <div class="help">xlsx · xls · csv</div>
+      <input type="file" id="file" accept=".xlsx,.xls,.csv" hidden>
+    </div>
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <div class="card">
+    <div class="row" style="margin-bottom:8px">
+      <b>자주 보내는 곳</b>
+      <input type="text" id="bookQ" placeholder="이름·주소로 찾기" style="font:inherit;padding:5px 8px;border:1px solid var(--line);border-radius:6px;min-width:180px">
+      <span style="flex:1"></span>
+      <button type="button" id="bookSave" style="padding:5px 10px;font-size:13px">백업 내려받기</button>
+      <button type="button" id="bookLoad" style="padding:5px 10px;font-size:13px">백업 불러오기</button>
+      <input type="file" id="bookFile" accept=".json" hidden>
+    </div>
+    <div id="book" class="help"></div>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <label class="opt"><input type="checkbox" id="optFrom"> 보내는 분(한일금박)도 함께 인쇄</label>
+      <label class="opt">결제금액 <input type="number" id="optIns" value="100" min="0" step="10"> 만원 이상이면 안심소포 표시</label>
+      <button type="button" id="addRow">+ 직접 추가</button>
+      <span style="flex:1"></span>
+      <button type="button" class="primary" id="printBtn" disabled>선택한 라벨 인쇄 (0장)</button>
+    </div>
+  </div>
+
+  <div class="card tablewrap">
+    <table>
+      <thead><tr>
+        <th class="c"><input type="checkbox" id="all" checked title="전체 선택"></th>
+        <th>받는 분</th><th>전화번호</th><th>우편번호</th><th style="width:34%">주소</th><th>상품</th><th>결제금액(원)</th><th class="c">안심소포</th><th class="c">장수</th><th></th>
+      </tr></thead>
+      <tbody id="tbody"><tr><td colspan="10" class="help" style="text-align:center;padding:18px">아직 불러온 주문이 없습니다.</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div style="font-weight:700;margin-bottom:10px">미리보기</div>
+    <div id="preview" class="help">주문을 불러오면 여기에 라벨 모양이 보입니다.</div>
+  </div>
+
+  <div class="card help">
+    <b>처음 한 번만 설정</b>
+    <ol>
+      <li>카페24 관리자 → 주문관리 → 배송준비중(또는 입금확인) 주문을 고른 뒤 <b>엑셀 다운로드</b>. 양식에 <b>수령인, 수령인 휴대전화, 수령인 우편번호, 수령인 주소, 상품명, 총 결제금액, 주문번호</b>가 들어가게 해 주세요.</li>
+      <li>인쇄 창에서 프린터를 <b>GoDEX</b>로 고르고, 용지 크기를 <b>100 × 70 mm</b>, 여백 <b>없음</b>, 배율 <b>100%(실제 크기)</b>, 머리글·바닥글 <b>끄기</b>로 맞춥니다.</li>
+      <li>용지 크기 목록에 100 × 70 mm가 없으면 Windows의 GoDEX 프린터 설정(인쇄 기본 설정 → 용지)에서 한 번 만들어 두면 됩니다.</li>
+    </ol>
+  </div>
+</div>
+
+<div id="print"></div>
+
+<script>
+const FROM = { name: '한일금박', tel: '02-733-8788', addr: '서울시 종로구 인사동5길 29, 503호(인사동, 태화빌딩)', zip: '03162' };
+let rows = [];
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const norm = s => String(s ?? '').replace(/\s+/g, '');
+const num = v => { const n = Number(String(v ?? '').replace(/[^\d.-]/g, '')); return isFinite(n) ? n : 0; };
+const won = n => n ? Math.round(n).toLocaleString('ko-KR') : '';
+const man = n => { const m = n / 10000; return (Number.isInteger(m) ? m : Math.ceil(m)).toLocaleString('ko-KR'); };
+function msg(t, err) { const m = $('#msg'); m.textContent = t; m.className = 'msg' + (err ? ' err' : ''); }
+
+/* 헤더 찾기: 카페24 양식마다 이름이 조금씩 달라서 여러 후보를 순서대로 찾음 */
+function pick(headers, cands, avoid = []) {
+  const H = headers.map(norm);
+  for (const c of cands) {
+    const i = H.findIndex(h => h === norm(c));
+    if (i >= 0) return i;
+  }
+  for (const c of cands) {
+    const i = H.findIndex(h => h.includes(norm(c)) && !avoid.some(a => h.includes(a)));
+    if (i >= 0) return i;
+  }
+  return -1;
+}
+
+function parseSheet(aoa) {
+  let hr = aoa.findIndex((r, i) => i < 15 && r.some(c => /수령인|수취인|받는\s*분|주문번호/.test(String(c))));
+  if (hr < 0) throw new Error('엑셀에서 "수령인" 또는 "주문번호" 열을 찾지 못했습니다.');
+  const h = aoa[hr].map(c => String(c ?? ''));
+  const col = {
+    order: pick(h, ['주문번호']),
+    name:  pick(h, ['수령인', '수령인명', '수취인', '수취인명', '받는분', '받는분성명'], ['전화', '휴대', '연락', '주소', '우편']),
+    mobile: pick(h, ['수령인휴대전화', '수령인휴대폰', '수취인휴대전화', '받는분휴대폰', '수령인연락처', '받는분연락처']),
+    phone: pick(h, ['수령인전화번호', '수취인전화번호', '받는분전화번호']),
+    zip:   pick(h, ['수령인우편번호', '수취인우편번호', '받는분우편번호', '우편번호']),
+    addrFull: pick(h, ['수령인주소(전체)', '수취인주소(전체)', '주소(전체)']),
+    addr:  pick(h, ['수령인주소', '수취인주소', '받는분주소'], ['상세', '전체']),
+    addr2: pick(h, ['수령인상세주소', '수취인상세주소', '받는분상세주소', '상세주소']),
+    prod:  pick(h, ['상품명', '주문상품명']),
+    opt:   pick(h, ['상품옵션', '옵션']),
+    qty:   pick(h, ['수량', '주문수량']),
+    amt:   pick(h, ['총결제금액', '실결제금액', '결제금액', '총주문금액', '주문금액']),
+  };
+  if (col.name < 0) throw new Error('"수령인" 열을 찾지 못했습니다. 엑셀 양식에 수령인 이름을 넣어 주세요.');
+  if (col.addr < 0 && col.addrFull < 0) throw new Error('"수령인 주소" 열을 찾지 못했습니다.');
+
+  const g = (r, i) => i >= 0 ? String(r[i] ?? '').trim() : '';
+  const byOrder = new Map();
+  const out = [];
+  for (const r of aoa.slice(hr + 1)) {
+    const name = g(r, col.name);
+    if (!name) continue;
+    const order = g(r, col.order);
+    let prod = g(r, col.prod);
+    const optv = g(r, col.opt), qty = g(r, col.qty);
+    if (prod && optv) prod += ' (' + optv + ')';
+    if (prod && qty && qty !== '1') prod += ' ×' + qty;
+    const key = order || ('#' + out.length);
+    if (order && byOrder.has(key)) {           // 같은 주문의 상품이 여러 줄로 나뉜 경우 합치기
+      const o = byOrder.get(key);
+      if (prod) o.prods.push(prod);
+      continue;
+    }
+    let addr = col.addrFull >= 0 ? g(r, col.addrFull) : '';
+    if (!addr) addr = [g(r, col.addr), g(r, col.addr2)].filter(Boolean).join(' ');
+    const o = {
+      on: true, order, name,
+      tel: g(r, col.mobile) || g(r, col.phone),
+      zip: g(r, col.zip).replace(/^\[|\]$/g, ''),
+      addr, prods: prod ? [prod] : [],
+      amt: num(g(r, col.amt)), ins: null, n: 1,
+    };
+    byOrder.set(key, o); out.push(o);
+  }
+  return out;
+}
+
+function readFile(f) {
+  if (!window.XLSX) { msg('엑셀 읽기 도구를 불러오지 못했습니다. 인터넷 연결을 확인하고 새로고침해 주세요.', true); return; }
+  const rd = new FileReader();
+  rd.onload = e => {
+    try {
+      const wb = XLSX.read(new Uint8Array(e.target.result), { type: 'array', codepage: 949 });
+      const ws = wb.Sheets[wb.SheetNames[0]];
+      const aoa = XLSX.utils.sheet_to_json(ws, { header: 1, raw: false, defval: '' });
+      const got = parseSheet(aoa);
+      if (!got.length) throw new Error('주문이 한 건도 없습니다.');
+      rows = rows.concat(got);
+      msg(`${f.name} — 주문 ${got.length}건을 불러왔습니다. 내용을 확인하고 고칠 곳은 표에서 바로 고치면 됩니다.`);
+      render();
+    } catch (err) {
+      const t = String(err.message || err);
+      msg(/password|encrypt/i.test(t) ? '비밀번호가 걸린 엑셀은 열 수 없습니다. 엑셀에서 열어 "다른 이름으로 저장"할 때 암호를 지우고 다시 올려 주세요.' : t, true);
+    }
+  };
+  rd.readAsArrayBuffer(f);
+}
+
+function insOn(o) { return o.ins === null ? o.amt >= num($('#optIns').value) * 10000 && o.amt > 0 : o.ins; }
+
+function labelHTML(o) {
+  const from = $('#optFrom').checked;
+  const ins = insOn(o);
+  return `<div class="label${from ? '' : ' nofrom'}">
+    ${from ? `<div class="from"><b>보내는 분 ${esc(FROM.name)}</b> ${esc(FROM.tel)}<br>${esc(FROM.addr)} ${esc(FROM.zip)}</div>` : ''}
+    <div class="to-h">받는 분</div>
+    <div class="name">${esc(o.name)} <small>님</small></div>
+    <div class="tel">${esc(o.tel)}</div>
+    <div class="addr">${o.zip ? `<span class="zip">[${esc(o.zip)}]</span> ` : ''}${esc(o.addr)}</div>
+    <div class="foot">
+      <div class="info">${o.order ? '주문 ' + esc(o.order) + '<br>' : ''}${esc(o.prods.join(', '))}</div>
+      ${ins ? `<div class="ins">안심소포<b>${o.amt ? man(o.amt) + '만원' : '가액 ____'}</b></div>` : ''}
+    </div>
+  </div>`;
+}
+
+function render() {
+  const tb = $('#tbody');
+  if (!rows.length) {
+    tb.innerHTML = '<tr><td colspan="10" class="help" style="text-align:center;padding:18px">아직 불러온 주문이 없습니다.</td></tr>';
+  } else {
+    tb.innerHTML = rows.map((o, i) => `<tr>
+      <td class="c"><input type="checkbox" data-i="${i}" data-k="on" ${o.on ? 'checked' : ''}></td>
+      <td><input type="text" data-i="${i}" data-k="name" value="${esc(o.name)}"></td>
+      <td><input type="text" data-i="${i}" data-k="tel" value="${esc(o.tel)}"></td>
+      <td><input type="text" data-i="${i}" data-k="zip" value="${esc(o.zip)}" style="width:70px"></td>
+      <td><input type="text" data-i="${i}" data-k="addr" value="${esc(o.addr)}"></td>
+      <td><input type="text" data-i="${i}" data-k="prods" value="${esc(o.prods.join(', '))}"></td>
+      <td><input type="text" class="amt" data-i="${i}" data-k="amt" value="${won(o.amt)}"></td>
+      <td class="c"><input type="checkbox" data-i="${i}" data-k="ins" ${insOn(o) ? 'checked' : ''}></td>
+      <td class="c"><input type="number" data-i="${i}" data-k="n" value="${o.n || 1}" min="1" max="50" style="width:52px"></td>
+      <td style="white-space:nowrap"><button type="button" data-fav="${i}" title="자주 보내는 곳에 저장" style="padding:3px 8px">☆ 저장</button> <button type="button" data-del="${i}" title="목록에서 빼기" style="padding:3px 9px">✕</button></td>
+    </tr>`).join('');
+  }
+  renderPreview();
+}
+
+function renderPreview() {
+  const sel = rows.filter(o => o.on);
+  const html = sel.map(labelHTML).join('');
+  const total = sel.reduce((a, o) => a + (o.n || 1), 0);
+  $('#preview').innerHTML = rows.length ? (html || '<span class="help">선택한 주문이 없습니다.</span>') : '주문을 불러오면 여기에 라벨 모양이 보입니다.';
+  $('#print').innerHTML = sel.map(o => labelHTML(o).repeat(o.n || 1)).join('');
+  const b = $('#printBtn');
+  b.disabled = !sel.length;
+  b.textContent = `선택한 라벨 인쇄 (${total}장)`;
+  $('#all').checked = rows.length > 0 && sel.length === rows.length;
+}
+
+$('#tbody').addEventListener('input', e => {
+  const t = e.target, i = t.dataset.i, k = t.dataset.k;
+  if (i === undefined) return;
+  const o = rows[i];
+  if (k === 'on') o.on = t.checked;
+  else if (k === 'n') o.n = Math.max(1, Math.min(50, parseInt(t.value) || 1));
+  else if (k === 'ins') o.ins = t.checked;
+  else if (k === 'prods') o.prods = t.value ? [t.value] : [];
+  else if (k === 'amt') { o.amt = num(t.value); if (o.ins === null) { const cb = t.closest('tr').querySelector('[data-k=ins]'); cb.checked = insOn(o); } }
+  else o[k] = t.value;
+  renderPreview();
+});
+$('#tbody').addEventListener('click', e => {
+  const f = e.target.dataset.fav;
+  if (f !== undefined) { saveFav(rows[+f]); e.target.textContent = '★ 저장됨'; return; }
+  const d = e.target.dataset.del;
+  if (d !== undefined) { rows.splice(+d, 1); render(); }
+});
+$('#all').addEventListener('change', e => { rows.forEach(o => o.on = e.target.checked); render(); });
+$('#optFrom').addEventListener('change', renderPreview);
+$('#optIns').addEventListener('input', render);
+$('#addRow').addEventListener('click', () => {
+  rows.push({ on: true, order: '', name: '', tel: '', zip: '', addr: '', prods: [], amt: 0, ins: null, n: 1 });
+  render();
+  const inputs = document.querySelectorAll('#tbody tr:last-child input[type=text]');
+  if (inputs[0]) inputs[0].focus();
+});
+$('#printBtn').addEventListener('click', () => { renderPreview(); window.print(); });
+
+/* ---------- 자주 보내는 곳 (이 컴퓨터 브라우저에 저장) ---------- */
+const BK = 'hanil-label-book';
+function loadBook() { try { return JSON.parse(localStorage.getItem(BK)) || []; } catch (e) { return []; } }
+function storeBook(b) { try { localStorage.setItem(BK, JSON.stringify(b)); } catch (e) { msg('이 브라우저에서는 저장이 되지 않습니다. 백업 내려받기를 이용해 주세요.', true); } }
+function saveFav(o) {
+  if (!o.name || !o.addr) { msg('받는 분 이름과 주소가 있어야 저장할 수 있습니다.', true); return; }
+  const b = loadBook().filter(x => !(x.name === o.name && x.addr === o.addr));
+  b.unshift({ name: o.name, tel: o.tel, zip: o.zip, addr: o.addr });
+  storeBook(b); renderBook();
+}
+function renderBook() {
+  const q = norm($('#bookQ').value);
+  const b = loadBook();
+  const list = b.map((x, i) => ({ x, i })).filter(({ x }) => !q || norm(x.name + x.addr + x.tel).includes(q));
+  $('#book').innerHTML = !b.length
+    ? '아직 저장된 곳이 없습니다. 아래 표에서 <b>☆ 저장</b>을 누르면 여기에 모여서, 다음부터는 엑셀 없이 눌러서 바로 뽑을 수 있습니다.'
+    : (list.length ? list.map(({ x, i }) => `<div style="display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid var(--line)">
+        <button type="button" data-use="${i}" style="padding:3px 10px">+ 넣기</button>
+        <span style="flex:1;color:var(--ink)"><b>${esc(x.name)}</b> ${esc(x.tel)} · ${x.zip ? '[' + esc(x.zip) + '] ' : ''}${esc(x.addr)}</span>
+        <button type="button" data-rm="${i}" title="저장 목록에서 지우기" style="padding:3px 9px">✕</button></div>`).join('') : '찾는 곳이 없습니다.');
+}
+$('#book').addEventListener('click', e => {
+  const u = e.target.dataset.use, r = e.target.dataset.rm;
+  const b = loadBook();
+  if (u !== undefined) { const x = b[+u]; rows.push({ on: true, order: '', prods: [], amt: 0, ins: null, n: 1, ...x }); render(); msg(x.name + ' 님을 인쇄 목록에 넣었습니다.'); }
+  if (r !== undefined && confirm(b[+r].name + ' 님을 저장 목록에서 지울까요?')) { b.splice(+r, 1); storeBook(b); renderBook(); }
+});
+$('#bookQ').addEventListener('input', renderBook);
+$('#bookSave').addEventListener('click', () => {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(loadBook(), null, 1)], { type: 'application/json' }));
+  a.download = '한일금박-자주보내는곳.json'; a.click();
+});
+$('#bookLoad').addEventListener('click', () => $('#bookFile').click());
+$('#bookFile').addEventListener('change', e => {
+  const f = e.target.files[0]; if (!f) return;
+  f.text().then(t => {
+    const add = JSON.parse(t); const b = loadBook();
+    add.forEach(x => { if (x.name && x.addr && !b.some(y => y.name === x.name && y.addr === x.addr)) b.push(x); });
+    storeBook(b); renderBook(); msg('백업에서 ' + add.length + '곳을 불러왔습니다.');
+  }).catch(() => msg('백업 파일을 읽지 못했습니다.', true));
+  e.target.value = '';
+});
+renderBook();
+
+const drop = $('#drop'), file = $('#file');
+drop.addEventListener('click', () => file.click());
+file.addEventListener('change', () => { [...file.files].forEach(readFile); file.value = ''; });
+['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
+['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
+drop.addEventListener('drop', e => [...e.dataTransfer.files].forEach(readFile));
+</script>
+</body>
+</html>
