@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Q&amp;A 관리 · 한일금박</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600&family=Song+Myung&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F5F4F0; --surface: #FFFFFF; --ink: #1C1813; --ink-2: #6B6256; --line: #DED8CC;
+  --gold: #9A7428; --gold-hi: #D7B25A; --gold-soft: #EFE4C8; --lacquer: #17120E; --on-lacquer: #F1EBDD;
+  --red: #A33B2B;
+  --f-display: "Song Myung", serif; --f-body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --paper: #110E0B; --surface: #1A1612; --ink: #EEE7D9; --ink-2: #A99F8F; --line: #2F2922; --gold: #D6B05C; --gold-soft: #2A2216; --red: #E07A68; color-scheme: dark; }
+}
+:root[data-theme="dark"] { --paper: #110E0B; --surface: #1A1612; --ink: #EEE7D9; --ink-2: #A99F8F; --line: #2F2922; --gold: #D6B05C; --gold-soft: #2A2216; --red: #E07A68; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.65 var(--f-body); word-break: keep-all; overflow-wrap: break-word; }
+[hidden] { display: none !important; }
+header { background: var(--lacquer); color: var(--on-lacquer); }
+.wrap { max-width: 900px; margin: 0 auto; padding: 0 max(16px, env(safe-area-inset-left, 0px)); }
+header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 60px; }
+header h1 { font: 400 20px var(--f-display); margin: 0; }
+header a { color: var(--on-lacquer); opacity: .8; font-size: 14px; }
+main.wrap { padding-top: 28px; padding-bottom: 60px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 16px; border-radius: 999px; border: 1px solid var(--gold); background: transparent; color: var(--ink); font: 500 14px var(--f-body); cursor: pointer; text-decoration: none; }
+.btn:hover { background: var(--gold-soft); }
+.btn.solid { background: var(--gold-hi); border-color: var(--gold-hi); color: #17120E; }
+.btn.warn { border-color: var(--red); color: var(--red); }
+.btn.ghost { border-color: rgba(241,235,221,.35); color: var(--on-lacquer); }
+.btn:disabled { opacity: .5; cursor: default; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: clamp(16px, 3vw, 24px); }
+.login { max-width: 380px; margin: 40px auto; display: grid; gap: 14px; }
+.login h2 { font: 400 26px var(--f-display); margin: 0; }
+label { display: grid; gap: 6px; font-size: 14px; font-weight: 500; }
+input, textarea { width: 100%; font: 16px var(--f-body); color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 4px; padding: 10px 12px; }
+textarea { min-height: 110px; resize: vertical; }
+.msg { font-size: 14px; color: var(--red); min-height: 1.4em; margin: 0; }
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+.tabs button { padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink-2); font: 500 14px var(--f-body); cursor: pointer; }
+.tabs button[aria-pressed="true"] { border-color: var(--gold); color: var(--ink); background: var(--gold-soft); }
+.tabs b { font-weight: 600; margin-left: 4px; color: var(--gold); }
+.list { display: grid; gap: 14px; }
+.item { display: grid; gap: 12px; }
+.item .top { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; align-items: baseline; }
+.item h3 { margin: 0; font-size: 17px; font-weight: 600; }
+.meta { font-size: 13px; color: var(--ink-2); }
+.meta span + span::before { content: " · "; }
+.pill { font-size: 12px; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-2); white-space: nowrap; }
+.pill.pending { border-color: var(--gold); color: var(--gold); }
+.pill.hidden { border-color: var(--red); color: var(--red); }
+.q { white-space: pre-wrap; background: var(--paper); border-radius: 4px; padding: 12px 14px; margin: 0; }
+.acts { display: flex; gap: 8px; flex-wrap: wrap; }
+.empty { color: var(--ink-2); padding: 30px 0; text-align: center; }
+.toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--lacquer); color: var(--on-lacquer); padding: 10px 18px; border-radius: 999px; font-size: 14px; max-width: calc(100% - 32px); }
+.bar { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+.bar h2 { font: 400 26px var(--f-display); margin: 0; }
+</style>
+</head>
+<body>
+<header><div class="wrap"><h1>한일금박 Q&amp;A 관리</h1><span><a href="/#qna">홈페이지로</a> <button class="btn ghost" id="logout" type="button" hidden>로그아웃</button></span></div></header>
+<main class="wrap">
+  <form class="card login" id="loginForm">
+    <h2>관리자 로그인</h2>
+    <label>이메일 <input type="email" name="email" autocomplete="username" required></label>
+    <label>비밀번호 <input type="password" name="pw" autocomplete="current-password" required></label>
+    <button class="btn solid" type="submit">로그인</button>
+    <p class="msg" id="loginMsg" role="status"></p>
+  </form>
+
+  <section id="panel" hidden>
+    <div class="bar"><h2>질문 관리</h2><button class="btn" type="button" id="reload">새로고침</button></div>
+    <div class="tabs" role="group" aria-label="상태">
+      <button type="button" data-f="pending" aria-pressed="true">승인 대기<b id="c-pending"></b></button>
+      <button type="button" data-f="approved" aria-pressed="false">게시됨<b id="c-approved"></b></button>
+      <button type="button" data-f="hidden" aria-pressed="false">숨김<b id="c-hidden"></b></button>
+    </div>
+    <div class="list" id="list"></div>
+  </section>
+</main>
+<div class="toast" id="toast" hidden role="status"></div>
+<script>
+(function () {
+  var SB_URL = 'https://hsfnkregnbxoyoollxwp.supabase.co', SB_KEY = 'sb_publishable_X_oSmjFVZleVJRKSOeQ72Q_jhWNpk1e';
+  var KEY = 'hanil-qna-admin', sess = null, rows = [], filter = 'pending';
+  var $ = function (id) { return document.getElementById(id); };
+  function save() { try { sess ? sessionStorage.setItem(KEY, JSON.stringify(sess)) : sessionStorage.removeItem(KEY); } catch (e) {} }
+  try { sess = JSON.parse(sessionStorage.getItem(KEY) || 'null'); } catch (e) { sess = null; }
+  var tt; function toast(m) { var t = $('toast'); t.textContent = m; t.hidden = false; clearTimeout(tt); tt = setTimeout(function () { t.hidden = true; }, 2200); }
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function when(t) { var d = new Date(t); return d.getFullYear() + '.' + (d.getMonth() + 1) + '.' + d.getDate() + ' ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'); }
+
+  function auth(body, grant) {
+    return fetch(SB_URL + '/auth/v1/token?grant_type=' + grant, { method: 'POST', headers: { apikey: SB_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+      .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw j; return j; }); })
+      .then(function (j) { sess = { at: j.access_token, rt: j.refresh_token, exp: Date.now() + (j.expires_in - 60) * 1000 }; save(); });
+  }
+  function token() {
+    if (!sess) return Promise.reject('login');
+    if (Date.now() < sess.exp) return Promise.resolve(sess.at);
+    return auth({ refresh_token: sess.rt }, 'refresh_token').then(function () { return sess.at; });
+  }
+  function api(path, opt) {
+    opt = opt || {};
+    return token().then(function (at) {
+      var h = { apikey: SB_KEY, Authorization: 'Bearer ' + at, 'Content-Type': 'application/json' };
+      if (opt.prefer) h.Prefer = opt.prefer;
+      return fetch(SB_URL + '/rest/v1/' + path, { method: opt.method || 'GET', headers: h, body: opt.body ? JSON.stringify(opt.body) : undefined });
+    }).then(function (r) {
+      if (r.status === 401) { logout(); throw 'login'; }
+      if (!r.ok) return r.json().then(function (j) { throw j; });
+      return r.status === 204 ? null : r.json();
+    });
+  }
+
+  function logout() { sess = null; save(); show(); }
+  function show() {
+    var on = !!sess;
+    $('loginForm').hidden = on; $('panel').hidden = !on; $('logout').hidden = !on;
+    if (on) load();
+  }
+
+  function load() {
+    api('qna?select=id,created_at,name,contact,title,body,is_secret,status,answer,answered_at&order=created_at.desc&limit=500')
+      .then(function (r) {
+        rows = r || [];
+        render();
+      })
+      .catch(function (e) { if (e !== 'login') toast('불러오지 못했습니다. 잠시 후 다시 시도해 주세요.'); });
+  }
+
+  function render() {
+    ['pending', 'approved', 'hidden'].forEach(function (s) {
+      var n = rows.filter(function (q) { return q.status === s; }).length; $('c-' + s).textContent = n ? n : '';
+    });
+    var list = $('list'); list.textContent = '';
+    var show = rows.filter(function (q) { return q.status === filter; });
+    if (!show.length) { list.appendChild(el('p', 'empty', filter === 'pending' ? '승인을 기다리는 질문이 없습니다.' : '해당하는 글이 없습니다.')); return; }
+    show.forEach(function (q) { list.appendChild(item(q)); });
+  }
+
+  function item(q) {
+    var c = el('article', 'card item'), top = el('div', 'top'), left = el('div');
+    left.appendChild(el('h3', null, (q.is_secret ? '🔒 ' : '') + q.title));
+    var m = el('div', 'meta');
+    m.appendChild(el('span', null, q.name));
+    if (q.contact) m.appendChild(el('span', null, '연락처 ' + q.contact));
+    m.appendChild(el('span', null, when(q.created_at)));
+    if (q.is_secret) m.appendChild(el('span', null, '비밀글'));
+    left.appendChild(m); top.appendChild(left);
+    top.appendChild(el('span', 'pill ' + q.status, { pending: '승인 대기', approved: '게시됨', hidden: '숨김' }[q.status]));
+    c.appendChild(top);
+    c.appendChild(el('p', 'q', q.body));
+    var lab = el('label', null, '답변'), ta = el('textarea');
+    ta.value = q.answer || ''; ta.placeholder = '답변을 입력하세요. 비워 두면 답변 없이 게시됩니다.';
+    lab.appendChild(ta); c.appendChild(lab);
+    var acts = el('div', 'acts');
+    function btn(text, cls, fn) { var b = el('button', 'btn ' + (cls || ''), text); b.type = 'button'; b.addEventListener('click', function () { b.disabled = true; fn().finally(function () { b.disabled = false; }); }); acts.appendChild(b); }
+    function patch(body, done) {
+      return api('qna?id=eq.' + q.id, { method: 'PATCH', body: body, prefer: 'return=representation' })
+        .then(function (r) { if (!r || !r.length) throw { message: '권한이 없습니다' }; Object.assign(q, r[0]); render(); toast(done); })
+        .catch(function (e) { if (e !== 'login') toast('저장하지 못했습니다: ' + (e && e.message || '')); });
+    }
+    var ans = function () { return ta.value.trim() || null; };
+    if (q.status !== 'approved') btn('답변 저장하고 게시', 'solid', function () { return patch({ answer: ans(), status: 'approved' }, '게시했습니다.'); });
+    else btn('답변 저장', 'solid', function () { return patch({ answer: ans() }, '답변을 저장했습니다.'); });
+    if (q.status !== 'hidden') btn('숨기기', '', function () { return patch({ status: 'hidden' }, '숨겼습니다.'); });
+    if (q.status === 'approved') btn('대기로 돌리기', '', function () { return patch({ status: 'pending' }, '승인 대기로 옮겼습니다.'); });
+    btn('삭제', 'warn', function () {
+      if (!confirm('이 글을 완전히 삭제할까요? 되돌릴 수 없습니다.')) return Promise.resolve();
+      return api('qna?id=eq.' + q.id, { method: 'DELETE', prefer: 'return=representation' })
+        .then(function (r) { if (!r || !r.length) throw { message: '권한이 없습니다' }; rows = rows.filter(function (x) { return x.id !== q.id; }); render(); toast('삭제했습니다.'); })
+        .catch(function (e) { if (e !== 'login') toast('삭제하지 못했습니다: ' + (e && e.message || '')); });
+    });
+    c.appendChild(acts);
+    return c;
+  }
+
+  $('loginForm').addEventListener('submit', function (e) {
+    e.preventDefault(); var f = e.target; $('loginMsg').textContent = '로그인 중…';
+    auth({ email: f.email.value.trim(), password: f.pw.value }, 'password')
+      .then(function () { f.reset(); $('loginMsg').textContent = ''; show(); })
+      .catch(function () { $('loginMsg').textContent = '이메일 또는 비밀번호가 맞지 않습니다.'; });
+  });
+  $('logout').addEventListener('click', function () {
+    if (sess) token().then(function (at) { fetch(SB_URL + '/auth/v1/logout', { method: 'POST', headers: { apikey: SB_KEY, Authorization: 'Bearer ' + at } }); }).catch(function () {});
+    logout();
+  });
+  $('reload').addEventListener('click', load);
+  document.querySelectorAll('.tabs button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      filter = b.getAttribute('data-f');
+      document.querySelectorAll('.tabs button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      render();
+    });
+  });
+  show();
+})();
+</script>
+</body>
+</html>
