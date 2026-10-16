@@ -197,7 +197,8 @@ p { margin: 0; }
 .spec-head p { color: var(--ink-2); font-size: 15px; }
 .shot { margin: 0 0 24px; background: #FFFFFF; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
 .shot img { display: block; width: 100%; max-width: 100%; aspect-ratio: 16 / 8; height: auto; object-fit: contain; background: #FFFFFF; }
-.shot figcaption { font-size: 13px; color: #5E574D; padding: 10px 14px; border-top: 1px solid #ECE7DD; display: flex; justify-content: space-between; gap: 12px; }
+.shot figcaption { font-size: 13px; color: #5E574D; padding: 10px 14px; border-top: 1px solid #ECE7DD; display: flex; justify-content: space-between; gap: 12px; white-space: nowrap; height: 42px; align-items: center; }
+.shot figcaption span { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .shot figcaption span + span { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
 .tbl-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 460px; }
@@ -450,9 +451,9 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
                 <tr data-k="gg" data-photo="img/geumbak-gaegeum-dancheong.png" tabindex="0"><td>단청용</td><td class="mono">11 × 11 cm</td><td class="mono">100매/속</td><td>야외 단청 (종이에 눌러 바람에 날리지 않음)</td></tr>
                 <tr data-k="s4" data-photo="img/geumbak-4jeol.png" tabindex="0"><td>4절</td><td class="mono">5.5 × 5.5 cm</td><td class="mono">400매/속</td><td>공진단 코팅</td></tr>
                 <tr data-k="s6" data-photo="img/geumbak-6jeol.png" tabindex="0"><td>6절</td><td class="mono">3.7 × 5.5 cm</td><td class="mono">600매/속</td><td>작은 공진단 코팅</td></tr>
-                <tr data-k="cd" data-photo="img/geumbak-card.png" data-cap="카드용 금박" tabindex="0"><td>카드용</td><td class="mono">11 × 11 cm<br>11 × 15 cm<br>13 × 13 cm<br>11 × 17.4 cm<br>11.9 × 18.3 cm<br>12.5 × 18.3 cm</td><td class="mono">100매/속</td><td>상패, 카드</td></tr>
-                <tr data-photo="img/geumseol-package.png" data-cap="금설과 포장" tabindex="0"><td>금설</td><td class="mono">2~16 mesh</td><td class="mono">최소 2 g<br>1 g씩 추가 가능</td><td>음식 장식, 화장품</td></tr>
-                <tr data-photo="img/geumbun.png" data-cap="금분과 포장" tabindex="0"><td>금분</td><td class="mono">—</td><td class="mono">2 g</td><td>글씨, 그림, 화장품, 공예 마감</td></tr>
+                <tr data-k="cd" data-photo="img/geumbak-card.png" data-cap="카드용 금박" data-spec="11 × 11 ~ 12.5 × 18.3 cm · 100매/속" tabindex="0"><td>카드용</td><td class="mono">11 × 11 cm<br>11 × 15 cm<br>13 × 13 cm<br>11 × 17.4 cm<br>11.9 × 18.3 cm<br>12.5 × 18.3 cm</td><td class="mono">100매/속</td><td>상패, 카드</td></tr>
+                <tr data-photo="img/geumseol-package.png" data-cap="금설과 포장" data-spec="2~16 mesh · 최소 2 g부터" tabindex="0"><td>금설</td><td class="mono">2~16 mesh</td><td class="mono">최소 2 g<br>1 g씩 추가 가능</td><td>음식 장식, 화장품</td></tr>
+                <tr data-photo="img/geumbun.png" data-cap="금분과 포장" data-spec="2 g 포장" tabindex="0"><td>금분</td><td class="mono">—</td><td class="mono">2 g</td><td>글씨, 그림, 화장품, 공예 마감</td></tr>
               </tbody>
             </table>
           </div>
@@ -805,7 +806,7 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
     var c = tr.children, cap = tr.getAttribute('data-cap') || (c[0].textContent + ' 금박과 포장');
     shotImg.src = src; shotImg.alt = '한일금박 ' + cap;
     shotName.textContent = cap;
-    shotSpec.textContent = c[1].textContent.replace(/\s+/g, ' ').trim() + ' · ' + c[2].textContent;
+    shotSpec.textContent = tr.getAttribute('data-spec') || (c[1].textContent.replace(/\s+/g, ' ').trim() + ' · ' + c[2].textContent);
   }
   var shotImg = document.getElementById('shotImg'), shotName = document.getElementById('shotName'), shotSpec = document.getElementById('shotSpec');
   var first = document.querySelector('#specRows tr[data-k="s4"]'); first.classList.add('on'); mark('s4');
