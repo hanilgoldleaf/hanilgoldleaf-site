@@ -188,8 +188,8 @@ p { margin: 0; }
 }
 
 /* Spec: sizes at true scale */
-.spec { margin-top: clamp(56px, 8vw, 96px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
-.spec-head { display: grid; gap: 10px; margin-bottom: 20px; }
+.spec { margin-top: clamp(56px, 8vw, 96px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 20px clamp(24px, 4vw, 56px); align-items: start; }
+.spec-head { display: grid; gap: 10px; grid-column: 1 / -1; max-width: 640px; }
 .spec-head h3 { font-family: var(--f-display); font-size: clamp(24px, 3vw, 32px); }
 .spec-head p { color: var(--ink-2); font-size: 15px; }
 .shot { margin: 0 0 24px; background: #FFFFFF; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
@@ -429,12 +429,12 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
       </div>
 
       <div class="spec">
-        <div>
-          <div class="spec-head">
+        <div class="spec-head">
             <span class="eyebrow">Specifications</span>
             <h3>금박 규격표</h3>
             <p>포장 단위인 <b>속</b>은 금박을 묶은 한 묶음을 말합니다. 표의 줄에 마우스를 올리거나 누르면 오른쪽 그림에서 실제 크기 비율을 확인할 수 있습니다.</p>
           </div>
+        <div>
           <figure class="shot">
             <img id="shotImg" src="img/geumbak-4jeol.png" alt="한일금박 4절 금박과 포장" width="560" height="248" loading="lazy">
             <figcaption><span id="shotName">4절 금박과 포장</span> <span id="shotSpec">5.5 × 5.5 cm · 400매/속</span></figcaption>
