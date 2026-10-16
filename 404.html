@@ -14,9 +14,11 @@
   // 예전 사이트 주소(공지사항·문의 등)로 들어오면 새 홈페이지의 맞는 곳으로 보냄
   (function () {
     var p = location.pathname.toLowerCase(), base = p.indexOf('/en') === 0 ? '/en/' : '/';
-    var hash = /qna|board|19|18|notice|문의|공지/.test(decodeURIComponent(p)) ? '#qna'
-      : /product|제품/.test(decodeURIComponent(p)) ? '#products'
-      : /company|about|회사|overview/.test(decodeURIComponent(p)) ? '#about' : '';
+    var d = decodeURIComponent(p);
+    var hash = base === '/' && /19|notice|공지/.test(d) ? '#notice'
+      : /qna|board|18|notice|문의|공지/.test(d) ? '#qna'
+      : /product|제품/.test(d) ? '#products'
+      : /company|about|회사|overview/.test(d) ? '#about' : '';
     location.replace(base + hash);
   })();
 </script>

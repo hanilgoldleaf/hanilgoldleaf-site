@@ -114,7 +114,7 @@ p { margin: 0; }
 .top.open .menu-btn span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
 .top.open .menu-btn span:nth-child(2) { opacity: 0; }
 .top.open .menu-btn span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
-@media (max-width: 1060px) {
+@media (max-width: 1140px) {
   .menu-btn { display: block; }
   .nav {
     position: absolute; left: 0; right: 0; top: 64px; flex-direction: column; align-items: stretch; gap: 0;
@@ -315,7 +315,8 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
 }
 
 /* ---------- Q&A ---------- */
-#qna [hidden] { display: none !important; }
+#qna [hidden], #notice [hidden] { display: none !important; }
+.qtag.pin { border-color: var(--gold); background: var(--gold-soft); color: var(--gold); }
 .qna-top { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
 .qna-top .sec-head { margin-bottom: 0; }
 .qbtn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 999px; border: 1px solid var(--gold); background: transparent; color: var(--ink); font: 500 15px var(--f-body); cursor: pointer; }
@@ -356,7 +357,7 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
 .lang a:hover { color: var(--gold-hi); }
 .lang a[aria-current] { color: var(--gold-hi); font-weight: 500; }
 .lang i { font-style: normal; color: rgba(241,235,221,.3); }
-@media (max-width: 1060px) {
+@media (max-width: 1140px) {
   .lang { order: 1; margin-left: auto; border-left: 0; padding-left: 0; font-size: 13px; }
   .menu-btn { order: 2; }
 }
@@ -396,6 +397,7 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
       <a href="#uses">사용 분야</a>
       <a href="#about">회사소개</a>
       <a href="#history">연혁</a>
+      <a href="#notice">공지사항</a>
       <a href="#qna">Q&amp;A</a>
       <a href="#contact">오시는 길</a>
       <a class="shop" href="https://hanilgoldleaf.cafe24.com/" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9h14l-1.4 9.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8L5 9Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 9 12 4l3 5M3.5 9h17M10 12.5v4M14 12.5v4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>온라인몰</a>
@@ -571,6 +573,17 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
     </div>
   </section>
 
+  <section class="sec" id="notice" aria-labelledby="noticeTitle" style="padding-bottom:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Notice</span>
+        <h2 id="noticeTitle">공지사항</h2>
+      </div>
+      <ul class="qlist" id="nList" aria-live="polite"><li class="qempty">공지사항을 불러오는 중입니다…</li></ul>
+      <div class="qmore"><button class="qbtn" type="button" id="nMore" hidden>더 보기</button></div>
+    </div>
+  </section>
+
   <section class="sec" id="qna" aria-labelledby="qnaTitle">
     <div class="wrap">
       <div class="qna-top">
@@ -646,7 +659,7 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
 <footer>
   <div class="wrap">
     <span>한일금박공업사 · 대표 정세철 · Copyright © 2026 한일금박 All rights reserved.</span>
-    <nav aria-label="하단 메뉴"><a href="#products">제품소개</a><a href="#about">회사소개</a><a href="#qna">Q&amp;A</a><a href="#contact" data-inq>문의하기</a><a href="#contact">오시는 길</a><a href="#home">맨 위로</a><a href="admin.html" rel="nofollow">관리자</a></nav>
+    <nav aria-label="하단 메뉴"><a href="#products">제품소개</a><a href="#about">회사소개</a><a href="#notice">공지사항</a><a href="#qna">Q&amp;A</a><a href="#contact" data-inq>문의하기</a><a href="#contact">오시는 길</a><a href="#home">맨 위로</a><a href="admin.html" rel="nofollow">관리자</a></nav>
   </div>
 </footer>
 
@@ -773,6 +786,38 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
         })
         .catch(function (err) { msg.textContent = (err && err.message && /[가-힣]/.test(err.message)) ? err.message : '등록하지 못했습니다. 잠시 후 다시 시도해 주세요.'; newCap(); });
     });
+    load();
+  })();
+
+  // ---------- 공지사항 (Supabase, 관리자만 작성) ----------
+  (function () {
+    var SB_URL = 'https://hsfnkregnbxoyoollxwp.supabase.co', SB_KEY = 'sb_publishable_X_oSmjFVZleVJRKSOeQ72Q_jhWNpk1e';
+    var list = document.getElementById('nList'), more = document.getElementById('nMore');
+    if (!list) return;
+    var PAGE = 5, offset = 0;
+    function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+    function ymd(t) { var d = new Date(t); return d.getFullYear() + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + String(d.getDate()).padStart(2, '0'); }
+    function item(n) {
+      var li = el('li'), head = el('button', 'qhead'), body = el('div', 'qbody');
+      head.type = 'button'; head.setAttribute('aria-expanded', 'false'); body.hidden = true;
+      head.appendChild(el('span', 't', n.title));
+      head.appendChild(el('span', 'm', ymd(n.created_at)));
+      if (n.pinned) head.appendChild(el('span', 'qtag pin', '공지'));
+      body.appendChild(el('p', 'q', n.body));
+      head.addEventListener('click', function () { body.hidden = !body.hidden; head.setAttribute('aria-expanded', body.hidden ? 'false' : 'true'); });
+      li.appendChild(head); li.appendChild(body); return li;
+    }
+    function load() {
+      fetch(SB_URL + '/rest/v1/notice?select=id,created_at,title,body,pinned&order=pinned.desc,created_at.desc&limit=' + (PAGE + 1) + '&offset=' + offset, { headers: { apikey: SB_KEY } })
+        .then(function (r) { if (!r.ok) throw r; return r.json(); })
+        .then(function (rows) {
+          if (offset === 0) list.innerHTML = '';
+          if (!rows.length && offset === 0) list.appendChild(el('li', 'qempty', '등록된 공지사항이 없습니다.'));
+          rows.slice(0, PAGE).forEach(function (n) { list.appendChild(item(n)); });
+          more.hidden = rows.length <= PAGE; offset += PAGE;
+        }).catch(function () { list.innerHTML = ''; list.appendChild(el('li', 'qempty', '등록된 공지사항이 없습니다.')); });
+    }
+    more.addEventListener('click', load);
     load();
   })();
 
