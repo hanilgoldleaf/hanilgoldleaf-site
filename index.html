@@ -329,6 +329,27 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
 .qform .note { font-size: 13px; color: var(--ink-2); }
 .qform .act { display: flex; gap: 10px; flex-wrap: wrap; }
 .qmsg { font-size: 14px; color: var(--gold); min-height: 1.4em; }
+
+/* ---------- 문의하기 ---------- */
+.nav a { white-space: nowrap; }
+.inq { width: min(640px, calc(100% - 24px)); max-height: calc(100dvh - 24px); padding: 0; border: 0; border-radius: 10px; background: var(--surface); color: var(--ink); box-shadow: 0 24px 80px rgba(0,0,0,.35); overflow: auto; }
+.inq::backdrop { background: rgba(15,11,8,.6); }
+.inq form { display: grid; gap: 12px; padding: clamp(20px, 4vw, 34px); }
+.inq .x { position: absolute; top: 14px; right: 14px; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 20px; line-height: 1; cursor: pointer; }
+.inq h2 { font-family: var(--f-display); font-size: clamp(26px, 4vw, 34px); line-height: 1.2; }
+.inq .lead { color: var(--ink-2); margin-bottom: 6px; }
+.inq .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.inq label { display: grid; gap: 6px; font-size: 14px; font-weight: 500; }
+.inq label i { font-style: normal; color: var(--gold); }
+.inq input[type=text], .inq input[type=email], .inq input[type=tel], .inq textarea { width: 100%; font: 16px var(--f-body); color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 4px; padding: 11px 12px; }
+.inq textarea { min-height: 150px; resize: vertical; }
+.inq .agree { display: flex; gap: 8px; align-items: flex-start; font-weight: 400; font-size: 13px; color: var(--ink-2); }
+.inq .agree input { margin-top: 4px; }
+.inq .agree details { color: var(--ink-2); }
+.inq .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.inq .send { justify-content: center; border: 0; cursor: pointer; font-family: var(--f-body); }
+.inq .msg { font-size: 14px; color: var(--gold); min-height: 1.4em; }
+.inq .done { display: grid; gap: 14px; padding: clamp(28px, 5vw, 44px); text-align: center; }
 </style>
 </head>
 <body>
@@ -346,8 +367,9 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
       <a href="#history">연혁</a>
       <a href="#qna">Q&amp;A</a>
       <a href="#contact">오시는 길</a>
+      <a href="#contact" data-inq>문의하기</a>
       <a class="shop" href="https://hanilgoldleaf.cafe24.com/" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9h14l-1.4 9.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8L5 9Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 9 12 4l3 5M3.5 9h17M10 12.5v4M14 12.5v4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>온라인몰</a>
-      <a class="call" href="tel:027338788">문의 02-733-8788</a>
+      <a class="call" href="tel:027338788">☎ 02-733-8788</a>
     </nav>
   </div>
 </header>
@@ -364,7 +386,7 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
         <div class="hero-actions">
           <a class="btn btn-gold" href="#products">제품 살펴보기 <span aria-hidden="true">→</span></a>
           <a class="btn btn-line" href="https://hanilgoldleaf.cafe24.com/" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9h14l-1.4 9.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8L5 9Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 9 12 4l3 5M3.5 9h17M10 12.5v4M14 12.5v4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>온라인몰</a>
-          <a class="btn btn-line" href="#contact">구매·견적 문의</a>
+          <a class="btn btn-line" href="#contact" data-inq>구매·견적 문의</a>
         </div>
       </div>
     </div>
@@ -557,6 +579,7 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
         <span class="eyebrow">Contact</span>
         <h2 id="contactTitle">구매 · 견적 문의</h2>
         <p>필요한 제품과 수량을 말씀해 주시면 규격과 납기를 안내해 드립니다.</p>
+        <p><a class="btn btn-gold" href="#contact" data-inq>온라인으로 문의하기 →</a></p>
       </div>
       <div class="cgrid">
         <div class="cbox">
@@ -591,10 +614,39 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
 <footer>
   <div class="wrap">
     <span>한일금박공업사 · 대표 정세철 · Copyright © 2026 한일금박 All rights reserved.</span>
-    <nav aria-label="하단 메뉴"><a href="#products">제품소개</a><a href="#about">회사소개</a><a href="#qna">Q&amp;A</a><a href="#contact">문의</a><a href="#home">맨 위로</a><a href="admin.html" rel="nofollow">관리자</a></nav>
+    <nav aria-label="하단 메뉴"><a href="#products">제품소개</a><a href="#about">회사소개</a><a href="#qna">Q&amp;A</a><a href="#contact" data-inq>문의하기</a><a href="#contact">오시는 길</a><a href="#home">맨 위로</a><a href="admin.html" rel="nofollow">관리자</a></nav>
   </div>
 </footer>
 
+<dialog class="inq" id="inq" aria-labelledby="inqTitle">
+  <form id="inqForm" novalidate>
+    <button class="x" type="button" data-close aria-label="닫기">×</button>
+    <span class="eyebrow">Contact us</span>
+    <h2 id="inqTitle">문의하기</h2>
+    <p class="lead">제품 구매, 견적, 규격 상담 내용을 남겨 주시면 확인 후 연락드립니다.</p>
+    <div class="two">
+      <label><span>회사명 / 직함 <i>*</i></span><input type="text" name="company" maxlength="60" autocomplete="organization" required></label>
+      <label><span>담당자명 <i>*</i></span><input type="text" name="name" maxlength="30" autocomplete="name" required></label>
+      <label><span>이메일 <i>*</i></span><input type="email" name="email" maxlength="100" autocomplete="email" required></label>
+      <label>연락처<input type="tel" name="phone" maxlength="40" autocomplete="tel"></label>
+    </div>
+    <label><span>제목 <i>*</i></span><input type="text" name="title" maxlength="100" required></label>
+    <label><span>문의 내용 <i>*</i></span><textarea name="body" maxlength="3000" required placeholder="필요한 제품, 수량, 납기 등을 적어 주세요."></textarea></label>
+    <div class="two">
+      <label><span>자동 입력 방지 <i>*</i></span> <small id="inqCapQ" style="font-weight:400;color:var(--ink-2)"></small><input type="text" name="cap" inputmode="numeric" maxlength="3" required></label>
+    </div>
+    <label class="agree"><input type="checkbox" name="agree" required><span>개인정보 수집·이용에 동의합니다. <i>*</i><br>수집 항목: 회사명, 담당자명, 이메일, 연락처 · 목적: 문의 답변 · 보관: 답변 완료 후 1년 뒤 삭제</span></label>
+    <div class="hp" aria-hidden="true"><label>홈페이지 <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+    <button class="btn btn-gold send" type="submit">문의 보내기 →</button>
+    <p class="msg" id="inqMsg" role="status"></p>
+  </form>
+  <div class="done" id="inqDone" hidden>
+    <span class="eyebrow">Thank you</span>
+    <h2>문의가 접수되었습니다</h2>
+    <p class="lead">확인 후 남겨 주신 연락처로 답변드리겠습니다. 급한 문의는 02-733-8788로 전화 주세요.</p>
+    <p><button class="btn btn-gold send" type="button" data-close>닫기</button></p>
+  </div>
+</dialog>
 <div class="toast" id="toast" hidden></div>
 
 <script>
@@ -690,6 +742,40 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
         .catch(function (err) { msg.textContent = (err && err.message && /[가-힣]/.test(err.message)) ? err.message : '등록하지 못했습니다. 잠시 후 다시 시도해 주세요.'; newCap(); });
     });
     load();
+  })();
+
+  // ---------- 문의하기 ----------
+  (function () {
+    var W3F_KEY = 'a600f14e-f5d5-42d3-ba46-03a2e027d42f';   // Web3Forms access key: 문의가 이 키에 등록된 이메일로 전송됨
+    var dlg = document.getElementById('inq'), form = document.getElementById('inqForm'), done = document.getElementById('inqDone'), msg = document.getElementById('inqMsg');
+    if (!dlg || typeof dlg.showModal !== 'function' || !W3F_KEY) return;
+    var capA = 0, opened = 0;
+    function newCap() { var a = 2 + Math.floor(Math.random() * 8), b = 1 + Math.floor(Math.random() * 9); capA = a + b; document.getElementById('inqCapQ').textContent = a + ' + ' + b + ' = ?'; form.cap.value = ''; }
+    function open(e) { e.preventDefault(); form.hidden = false; done.hidden = true; msg.textContent = ''; newCap(); opened = Date.now(); dlg.showModal(); form.company.focus(); }
+    document.querySelectorAll('[data-inq]').forEach(function (a) { a.addEventListener('click', open); });
+    dlg.querySelectorAll('[data-close]').forEach(function (b) { b.addEventListener('click', function () { dlg.close(); }); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+    var BAD = /(https?:\/\/|www\.|bit\.ly|t\.me|카지노|바카라|토토|슬롯|도박|먹튀|야동|섹스|조건만남|출장안마|오피걸|룸살롱|리딩방|텔레그램|비아그라|casino|porn|viagra)/i;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var v = { company: form.company.value.trim(), name: form.name.value.trim(), email: form.email.value.trim(), phone: form.phone.value.trim(), title: form.title.value.trim(), body: form.body.value.trim() };
+      if (form.website.value || Date.now() - opened < 4000) { msg.textContent = '잠시 후 다시 시도해 주세요.'; return; }
+      if (!v.company || !v.name || !v.email || v.title.length < 2 || v.body.length < 5) { msg.textContent = '* 표시된 항목을 모두 입력해 주세요.'; return; }
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v.email)) { msg.textContent = '이메일 주소를 확인해 주세요.'; return; }
+      if (parseInt(form.cap.value, 10) !== capA) { msg.textContent = '자동 입력 방지 숫자가 맞지 않습니다.'; newCap(); return; }
+      if (!form.agree.checked) { msg.textContent = '개인정보 수집·이용에 동의해 주세요.'; return; }
+      if (BAD.test([v.company, v.name, v.title, v.body].join(' '))) { msg.textContent = '링크나 광고성 문구는 넣을 수 없습니다.'; return; }
+      msg.textContent = '보내는 중…';
+      fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ access_key: W3F_KEY, subject: '[홈페이지 문의] ' + v.title, from_name: '한일금박 홈페이지', replyto: v.email, botcheck: '',
+          '회사명/직함': v.company, '담당자명': v.name, '이메일': v.email, '연락처': v.phone || '-', '제목': v.title, '문의 내용': v.body }) })
+        .then(function (r) { return r.json(); })
+        .then(function (j) {
+          if (!j || !j.success) throw new Error('');
+          form.reset(); form.hidden = true; done.hidden = false;
+        })
+        .catch(function () { msg.textContent = '보내지 못했습니다. 02-733-8788로 전화 주시면 바로 안내드리겠습니다.'; newCap(); });
+    });
   })();
 
   // ---------- 복사 ----------
