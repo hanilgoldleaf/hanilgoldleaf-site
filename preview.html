@@ -1046,6 +1046,66 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
     sh.addColorStop(0, 'rgba(255,240,200,0)'); sh.addColorStop(.55, 'rgba(255,240,200,.08)'); sh.addColorStop(1, 'rgba(255,240,200,0)');
     c.fillStyle = sh; c.fillRect(0, 0, W, H);
   }
+  // 머리초 시안: 넓은 뇌록 바탕 끝에 화려한 머리초 하나
+  function drawMeori(c, W, H, dpr) {
+    var g = c.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, '#2C6556'); g.addColorStop(1, '#1F4A40');
+    c.fillStyle = g; c.fillRect(0, 0, W, H);
+    var tall = W < H * .9, bx, by, bw0, bh0;
+    if (tall) { bw0 = W; bh0 = Math.min(H * .3, 150 * dpr); bx = 0; by = 0; }
+    else { bw0 = Math.min(W * .34, H * .95); bh0 = H; bx = W - bw0; by = 0; }
+    var cx = bx + bw0 / 2, cy = by + (tall ? bh0 / 2 : H * .42), R = Math.min(bw0, bh0) * (tall ? .3 : .2);
+    c.save(); c.beginPath(); c.rect(bx, by, bw0, bh0); c.clip();
+    c.fillStyle = C.meok; c.fillRect(bx, by, bw0, bh0);
+    // 휘: 무지개 띠 (꽃을 감싸는 겹 띠)
+    var bands = [C.baek, C.ju, C.jang, C.jangL, C.yeon, C.baek, C.hwang, C.baek, C.sam, C.sam2, C.baek, C.noe, C.yang, C.baek, '#5B3F8C', '#9C86C6', C.baek, C.ju, C.jangL, C.baek, C.sam, C.sam2, C.baek, C.noe, C.yang, C.baek];
+    var bw = R * .11, far = Math.hypot(bw0, bh0);
+    for (var i = Math.ceil((far - R) / bw); i >= 0; i--) {
+      c.beginPath(); c.arc(cx, cy, R * 1.45 + i * bw, 0, 7); c.fillStyle = bands[i % bands.length]; c.fill();
+      c.lineWidth = Math.max(1, R * .008); c.strokeStyle = C.meok; c.stroke();
+    }
+    c.beginPath(); c.arc(cx, cy, R * 1.45, 0, 7); c.fillStyle = C.meok; c.fill();
+    // 바깥 녹화 잎
+    var n = 16;
+    for (var k = 0; k < n; k++) {
+      var a = k / n * Math.PI * 2, g2 = c.createRadialGradient(cx, cy, R, cx, cy, R * 1.45);
+      g2.addColorStop(0, '#CFE7D2'); g2.addColorStop(1, C.noe);
+      petal(c, cx, cy, a, R * 1.18, R * .13, R * .24, g2, R * .02);
+    }
+    juhwa(c, cx, cy, R);
+    // 금박 꽃술과 금 테
+    for (var m = 0; m < 12; m++) {
+      var b = m / 12 * Math.PI * 2;
+      c.beginPath(); c.arc(cx + Math.cos(b) * R * .97, cy + Math.sin(b) * R * .97, R * .05, 0, 7); c.fillStyle = gold(c, cx, cy, R); c.fill();
+    }
+    c.beginPath(); c.arc(cx, cy, R * 1.45, 0, 7); c.lineWidth = R * .05; c.strokeStyle = gold(c, cx, cy, R * 1.45); c.stroke();
+    c.restore();
+    // 머리초와 바탕 사이 경계: 먹 · 백 · 금
+    var e = 5 * dpr;
+    [[0, C.meok, e], [e, C.baek, e * .6], [e * 1.6, null, e * .8]].forEach(function (s) {
+      c.fillStyle = s[1] || gold(c, cx, cy, Math.max(bw0, bh0));
+      if (tall) c.fillRect(0, bh0 + s[0], W, s[2]); else c.fillRect(bx - s[0] - s[2], 0, s[2], H);
+    });
+    // 테두리: 먹 · 백 · 금 (간판 틀처럼)
+    var t = 6 * dpr;
+    [[0, C.meok, t], [t, C.baek, t * .5], [t * 1.5, null, t * .6]].forEach(function (s) {
+      c.fillStyle = s[1] || gold(c, W / 2, H / 2, Math.max(W, H));
+      c.fillRect(0, s[0], W, s[2]); c.fillRect(0, H - s[0] - s[2], W, s[2]);
+    });
+  }
+  var MEORI = /[?&]v=meori/.test(location.search);
+  if (MEORI) {
+    var _mono = drawDancheong;
+    drawDancheong = function () {
+      if (!dc) return;
+      var r = dc.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var W = Math.max(1, Math.round(r.width * dpr)), H = Math.max(1, Math.round(r.height * dpr));
+      if (dc.width === W && dc.height === H) return;
+      dc.width = W; dc.height = H;
+      drawMeori(dc.getContext('2d'), W, H, dpr);
+    };
+    var cap = document.querySelector('.hero-cap'); if (cap) cap.textContent = '단청 머리초 (시안)';
+  }
   drawDancheong();
   var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(drawDancheong, 150); });
 
