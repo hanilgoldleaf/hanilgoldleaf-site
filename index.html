@@ -152,10 +152,13 @@ p { margin: 0; }
 .hero-copy { padding-block: clamp(24px, 6vw, 72px); }
 .facts { border-top: 1px solid rgba(215,178,90,.25); background: rgba(23,18,14,.88); }
 .facts ul {
-  list-style: none; margin: 0; padding: 28px 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px;
+  list-style: none; margin: 0; padding: 28px 0; display: grid; grid-template-columns: repeat(4, max-content); justify-content: start; gap: 20px clamp(36px, 6vw, 88px);
 }
 .facts li { display: grid; gap: 4px; min-width: 0; }
 .facts .num { font-family: var(--f-display); font-size: clamp(26px, 3vw, 34px); color: var(--gold-hi); line-height: 1.2; font-variant-numeric: tabular-nums; }
+.facts .num small { font-size: .55em; margin-left: 2px; white-space: nowrap; }
+.facts .num { white-space: nowrap; }
+.hero .facts .wrap { display: block; }
 .facts .lbl { font-size: 13px; color: var(--on-lacquer-2); }
 @media (max-width: 820px) {
   .hero .wrap { grid-template-columns: minmax(0, 1fr); }
@@ -399,7 +402,7 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
       <div class="wrap"><ul>
         <li><span class="num">1965</span><span class="lbl">한일금박공업사 설립</span></li>
         <li><span class="num">2,000평</span><span class="lbl">안성 공장 대지</span></li>
-        <li><span class="num">의약품</span><span class="lbl">제조업 허가 (2016)</span></li>
+        <li><span class="num">의약품<small>(한약재)</small></span><span class="lbl">제조업 허가 (2016)</span></li>
         <li><span class="num">GMP</span><span class="lbl">한약재 GMP 적합 (2016)</span></li>
       </ul></div>
     </div>
@@ -429,7 +432,7 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
         <article class="cat">
           <figure class="tex"><canvas data-tex="powder" data-seed="37"></canvas><img src="img/geumbun.png" alt="한일금박 금분 제품" loading="lazy" onerror="this.remove()"><span class="tag">GOLD POWDER</span></figure>
           <h3>금분 <small>金粉</small></h3>
-          <p>금박을 밀가루처럼 곱게 간 가루 금입니다. 2g 단위로 포장하며 글씨와 그림, 화장품, 공예품 마감에 사용합니다.</p>
+          <p>금박을 밀가루처럼 곱게 간 가루 금입니다. 2g 1봉 단위로 포장하며 글씨와 그림, 화장품, 공예품 마감에 사용합니다.</p>
           <ul><li>서예·회화</li><li>화장품</li><li>공예 마감</li></ul>
         </article>
       </div>
@@ -453,9 +456,9 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
                 <tr data-k="gg" data-photo="img/geumbak-gaegeum-dancheong.png" tabindex="0"><td>단청용</td><td class="mono">11 × 11 cm</td><td class="mono">100매/속</td><td>야외 단청 (종이에 눌러 바람에 날리지 않음)</td></tr>
                 <tr data-k="s4" data-photo="img/geumbak-4jeol.png" tabindex="0"><td>4절</td><td class="mono">5.5 × 5.5 cm</td><td class="mono">400매/속</td><td>공진단 코팅</td></tr>
                 <tr data-k="s6" data-photo="img/geumbak-6jeol.png" tabindex="0"><td>6절</td><td class="mono">3.7 × 5.5 cm</td><td class="mono">600매/속</td><td>작은 공진단 코팅</td></tr>
-                <tr data-k="cd" data-photo="img/geumbak-card.png" data-cap="카드용 금박" data-spec="11 × 11 ~ 12.5 × 18.3 cm · 100매/속" tabindex="0"><td>카드용</td><td class="mono">11 × 11 cm<br>11 × 15 cm<br>13 × 13 cm<br>11 × 17.4 cm<br>11.9 × 18.3 cm<br>12.5 × 18.3 cm</td><td class="mono">100매/속</td><td>상패, 카드</td></tr>
+                <tr data-k="cd" data-photo="img/geumbak-card.png" data-cap="카드용 금박" data-spec="11 × 15 ~ 12.5 × 18.3 cm · 100매/속" tabindex="0"><td>카드용</td><td class="mono">11 × 15 cm<br>11 × 17.4 cm<br>11.9 × 18.3 cm<br>12.5 × 18.3 cm</td><td class="mono">100매/속</td><td>상패, 카드</td></tr>
                 <tr data-photo="img/geumseol-package.png" data-cap="금설과 포장" data-spec="2~16 mesh · 최소 2g, 1g씩 추가 가능" tabindex="0"><td>금설</td><td class="mono">2~16 mesh</td><td class="mono">최소 2g<br>1g씩 추가 가능</td><td>음식 장식, 화장품</td></tr>
-                <tr data-photo="img/geumbun.png" data-cap="금분과 포장" data-spec="2g 포장" tabindex="0"><td>금분</td><td class="mono">—</td><td class="mono">2g</td><td>글씨, 그림, 화장품, 공예 마감</td></tr>
+                <tr data-photo="img/geumbun.png" data-cap="금분과 포장" data-spec="2g 1봉" tabindex="0"><td>금분</td><td class="mono">—</td><td class="mono">2g 1봉</td><td>글씨, 그림, 화장품, 공예 마감</td></tr>
               </tbody>
             </table>
           </div>
