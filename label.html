@@ -63,7 +63,9 @@ td input[data-k=name] { min-width: 120px; } td input[data-k=tel] { min-width: 12
   body { background: #fff; }
   .wrap { display: none; }
   #print { display: block; }
-  #print .label { page-break-after: always; break-after: page; }
+  html, body { margin: 0; padding: 0; }
+  /* 인쇄 창 여백이 남아 있어도 한 장에 들어가도록 종이 높이에 맞춤 */
+  #print .label { width: 100%; max-width: 100mm; height: 100vh; max-height: 70mm; padding: 3mm 4mm 2.5mm; page-break-inside: avoid; break-inside: avoid; page-break-after: always; break-after: page; }
   #print .label:last-child { page-break-after: auto; break-after: auto; }
 }
 </style>
