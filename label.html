@@ -79,6 +79,11 @@ td input[data-k=name] { min-width: 120px; } td input[data-k=tel] { min-width: 12
       <div class="help">xlsx · xls · csv</div>
       <input type="file" id="file" accept=".xlsx,.xls,.csv" hidden>
     </div>
+    <div class="row" style="margin-top:12px">
+      <label class="opt">엑셀 비밀번호 <input type="password" id="xpw" autocomplete="off" placeholder="카페24에서 정한 비밀번호" style="font:inherit;padding:5px 8px;border:1px solid var(--line);border-radius:6px;width:210px"></label>
+      <button type="button" id="xpwGo" hidden>이 비밀번호로 열기</button>
+      <span class="help">카페24에서 엑셀을 받을 때 정한 비밀번호입니다. 이 컴퓨터 안에서 파일을 여는 데만 쓰고 저장하지 않습니다.</span>
+    </div>
     <div class="msg" id="msg"></div>
   </div>
 
@@ -209,12 +214,80 @@ function parseSheet(aoa) {
   return out;
 }
 
+/* ---------- 비밀번호 걸린 엑셀(ECMA-376 Agile) 풀기: 브라우저 안에서만 ---------- */
+const enc = new TextEncoder();
+const cat = (...a) => { const o = new Uint8Array(a.reduce((n, x) => n + x.length, 0)); let i = 0; for (const x of a) { o.set(x, i); i += x.length; } return o; };
+const u32 = n => new Uint8Array([n & 255, (n >>> 8) & 255, (n >>> 16) & 255, (n >>> 24) & 255]);
+const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+const fit = (b, n, pad) => { if (b.length >= n) return b.slice(0, n); const o = new Uint8Array(n).fill(pad); o.set(b); return o; };
+const HASH = { SHA512: 'SHA-512', SHA384: 'SHA-384', SHA256: 'SHA-256', SHA1: 'SHA-1' };
+async function H(alg, data) { return new Uint8Array(await crypto.subtle.digest(alg, data)); }
+async function aesNoPad(keyBytes, iv, data) {
+  // WebCrypto는 패딩을 요구하므로, 패딩 블록을 하나 만들어 붙인 뒤 복호화
+  const key = await crypto.subtle.importKey('raw', keyBytes, 'AES-CBC', false, ['encrypt', 'decrypt']);
+  const last = data.slice(data.length - 16);
+  const padBlk = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-CBC', iv: last }, key, new Uint8Array(16).fill(16))).slice(0, 16);
+  return new Uint8Array(await crypto.subtle.decrypt({ name: 'AES-CBC', iv }, key, cat(data, padBlk)));
+}
+function isEncrypted(buf) {
+  try { const c = XLSX.CFB.read(buf, { type: 'array' }); return !!XLSX.CFB.find(c, 'EncryptionInfo'); } catch (e) { return false; }
+}
+async function decryptOffice(buf, password) {
+  const c = XLSX.CFB.read(buf, { type: 'array' });
+  const info = Uint8Array.from(XLSX.CFB.find(c, 'EncryptionInfo').content);
+  const pkg = Uint8Array.from(XLSX.CFB.find(c, 'EncryptedPackage').content);
+  if (!(info[0] === 4 && info[2] === 4)) throw new Error('이 엑셀은 지원하지 않는 방식으로 잠겨 있습니다. 엑셀에서 열어 암호를 지운 뒤 다시 저장해 올려 주세요.');
+  const xml = new DOMParser().parseFromString(new TextDecoder().decode(info.slice(8)), 'application/xml');
+  const kd = xml.getElementsByTagName('keyData')[0];
+  const ek = [...xml.getElementsByTagName('*')].find(e => e.localName === 'encryptedKey' && e.getAttribute('spinCount'));
+  const alg = HASH[ek.getAttribute('hashAlgorithm')] || 'SHA-512';
+  const keyLen = +ek.getAttribute('keyBits') / 8, blk = +ek.getAttribute('blockSize');
+  let h = await H(alg, cat(b64(ek.getAttribute('saltValue')), new Uint8Array(new Uint16Array([...password].map(ch => ch.charCodeAt(0))).buffer)));
+  const spin = +ek.getAttribute('spinCount');
+  for (let i = 0; i < spin; i++) h = await H(alg, cat(u32(i), h));
+  const kek = fit(await H(alg, cat(h, new Uint8Array([0x14, 0x6e, 0x0b, 0xe7, 0xab, 0xac, 0xd0, 0xd6]))), keyLen, 0x36);
+  let secret;
+  try { secret = (await aesNoPad(kek, fit(b64(ek.getAttribute('saltValue')), blk, 0x36), b64(ek.getAttribute('encryptedKeyValue')))).slice(0, +kd.getAttribute('keyBits') / 8); }
+  catch (e) { throw new Error('WRONGPW'); }
+  // 비밀번호 확인값으로 맞는지 검사
+  const vIn = await aesNoPad(fit(await H(alg, cat(h, new Uint8Array([0xfe, 0xa7, 0xd2, 0x76, 0x3b, 0x4b, 0x9e, 0x79]))), keyLen, 0x36), fit(b64(ek.getAttribute('saltValue')), blk, 0x36), b64(ek.getAttribute('encryptedVerifierHashInput')));
+  const vHash = await aesNoPad(fit(await H(alg, cat(h, new Uint8Array([0xd7, 0xaa, 0x0f, 0x6d, 0x30, 0x61, 0x34, 0x4e]))), keyLen, 0x36), fit(b64(ek.getAttribute('saltValue')), blk, 0x36), b64(ek.getAttribute('encryptedVerifierHashValue')));
+  const want = await H(alg, vIn.slice(0, +ek.getAttribute('saltSize') || 16));
+  if (!want.every((b, i) => b === vHash[i])) throw new Error('WRONGPW');
+  const kdAlg = HASH[kd.getAttribute('hashAlgorithm')] || alg, kdSalt = b64(kd.getAttribute('saltValue')), kdBlk = +kd.getAttribute('blockSize');
+  const size = pkg[0] | (pkg[1] << 8) | (pkg[2] << 16) | (pkg[3] << 24);
+  const parts = [];
+  for (let off = 8, seg = 0; off < pkg.length; off += 4096, seg++) {
+    const iv = fit(await H(kdAlg, cat(kdSalt, u32(seg))), kdBlk, 0x36);
+    let chunk = pkg.slice(off, Math.min(off + 4096, pkg.length));
+    if (chunk.length % 16) chunk = fit(chunk, chunk.length + 16 - chunk.length % 16, 0);
+    parts.push(await aesNoPad(secret, iv, chunk));
+  }
+  return cat(...parts).slice(0, size);
+}
+
+let pending = null;
+$('#xpwGo').addEventListener('click', () => { if (pending) { const f = pending; pending = null; readFile(f); } });
+$('#xpw').addEventListener('keydown', e => { if (e.key === 'Enter' && pending) $('#xpwGo').click(); });
+
 function readFile(f) {
   if (!window.XLSX) { msg('엑셀 읽기 도구를 불러오지 못했습니다. 인터넷 연결을 확인하고 새로고침해 주세요.', true); return; }
   const rd = new FileReader();
-  rd.onload = e => {
+  rd.onload = async e => {
     try {
-      const wb = XLSX.read(new Uint8Array(e.target.result), { type: 'array', codepage: 949 });
+      let buf = new Uint8Array(e.target.result);
+      if (isEncrypted(buf)) {
+        const pw = $('#xpw').value;
+        if (!pw) { pending = f; $('#xpwGo').hidden = false; $('#xpw').focus(); msg('비밀번호가 걸린 엑셀입니다. 위 칸에 카페24에서 정한 비밀번호를 넣고 "이 비밀번호로 열기"를 눌러 주세요.', true); return; }
+        msg('비밀번호를 확인하는 중입니다… (몇 초 걸릴 수 있어요)');
+        try { buf = await decryptOffice(buf, pw); }
+        catch (err) {
+          if (String(err.message) === 'WRONGPW') { pending = f; $('#xpwGo').hidden = false; $('#xpw').select(); msg('비밀번호가 맞지 않습니다. 다시 넣고 "이 비밀번호로 열기"를 눌러 주세요.', true); return; }
+          throw err;
+        }
+        $('#xpwGo').hidden = true;
+      }
+      const wb = XLSX.read(buf, { type: 'array', codepage: 949 });
       const ws = wb.Sheets[wb.SheetNames[0]];
       const aoa = XLSX.utils.sheet_to_json(ws, { header: 1, raw: false, defval: '' });
       const got = parseSheet(aoa);
