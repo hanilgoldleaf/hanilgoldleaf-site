@@ -104,7 +104,6 @@ td input[data-k=name] { min-width: 120px; } td input[data-k=tel] { min-width: 12
   <div class="card">
     <div class="row">
       <label class="opt"><input type="checkbox" id="optFrom"> 보내는 분(한일금박)도 함께 인쇄</label>
-      <label class="opt">결제금액 <input type="number" id="optIns" value="100" min="0" step="10"> 만원 이상이면 안심소포 표시</label>
       <button type="button" id="addRow">+ 직접 추가</button>
       <span style="flex:1"></span>
       <button type="button" class="primary" id="printBtn" disabled>선택한 라벨 인쇄 (0장)</button>
@@ -115,9 +114,9 @@ td input[data-k=name] { min-width: 120px; } td input[data-k=tel] { min-width: 12
     <table>
       <thead><tr>
         <th class="c"><input type="checkbox" id="all" checked title="전체 선택"></th>
-        <th>받는 분</th><th>전화번호</th><th>우편번호</th><th style="width:34%">주소</th><th>상품</th><th>결제금액(원)</th><th class="c">안심소포</th><th class="c">장수</th><th></th>
+        <th>받는 분</th><th>전화번호</th><th>우편번호</th><th style="width:34%">주소</th><th>상품</th><th>결제금액(원)</th><th class="c">장수</th><th></th>
       </tr></thead>
-      <tbody id="tbody"><tr><td colspan="10" class="help" style="text-align:center;padding:18px">아직 불러온 주문이 없습니다.</td></tr></tbody>
+      <tbody id="tbody"><tr><td colspan="9" class="help" style="text-align:center;padding:18px">아직 불러온 주문이 없습니다.</td></tr></tbody>
     </table>
   </div>
 
@@ -306,11 +305,9 @@ function readFile(f) {
   rd.readAsArrayBuffer(f);
 }
 
-function insOn(o) { return o.ins === null ? o.amt >= num($('#optIns').value) * 10000 && o.amt > 0 : o.ins; }
 
 function labelHTML(o) {
   const from = $('#optFrom').checked;
-  const ins = insOn(o);
   return `<div class="label${from ? '' : ' nofrom'}">
     ${from ? `<div class="from"><b>보내는 분 ${esc(FROM.name)}</b> ${esc(FROM.tel)}<br>${esc(FROM.addr)} ${esc(FROM.zip)}</div>` : ''}
     <div class="to-h">받는 분</div>
@@ -319,7 +316,6 @@ function labelHTML(o) {
     <div class="addr">${o.zip ? `<span class="zip">[${esc(o.zip)}]</span> ` : ''}${esc(o.addr)}</div>
     <div class="foot">
       <div class="info">${o.order ? '주문 ' + esc(o.order) + '<br>' : ''}${esc(o.prods.join(', '))}</div>
-      ${ins ? `<div class="ins">안심소포<b>${o.amt ? man(o.amt) + '만원' : '가액 ____'}</b></div>` : ''}
     </div>
   </div>`;
 }
@@ -327,7 +323,7 @@ function labelHTML(o) {
 function render() {
   const tb = $('#tbody');
   if (!rows.length) {
-    tb.innerHTML = '<tr><td colspan="10" class="help" style="text-align:center;padding:18px">아직 불러온 주문이 없습니다.</td></tr>';
+    tb.innerHTML = '<tr><td colspan="9" class="help" style="text-align:center;padding:18px">아직 불러온 주문이 없습니다.</td></tr>';
   } else {
     tb.innerHTML = rows.map((o, i) => `<tr>
       <td class="c"><input type="checkbox" data-i="${i}" data-k="on" ${o.on ? 'checked' : ''}></td>
@@ -337,7 +333,6 @@ function render() {
       <td><input type="text" data-i="${i}" data-k="addr" value="${esc(o.addr)}"></td>
       <td><input type="text" data-i="${i}" data-k="prods" value="${esc(o.prods.join(', '))}"></td>
       <td><input type="text" class="amt" data-i="${i}" data-k="amt" value="${won(o.amt)}"></td>
-      <td class="c"><input type="checkbox" data-i="${i}" data-k="ins" ${insOn(o) ? 'checked' : ''}></td>
       <td class="c"><input type="number" data-i="${i}" data-k="n" value="${o.n || 1}" min="1" max="50" style="width:52px"></td>
       <td style="white-space:nowrap"><button type="button" data-fav="${i}" title="자주 보내는 곳에 저장" style="padding:3px 8px">☆ 저장</button> <button type="button" data-del="${i}" title="목록에서 빼기" style="padding:3px 9px">✕</button></td>
     </tr>`).join('');
@@ -363,9 +358,8 @@ $('#tbody').addEventListener('input', e => {
   const o = rows[i];
   if (k === 'on') o.on = t.checked;
   else if (k === 'n') o.n = Math.max(1, Math.min(50, parseInt(t.value) || 1));
-  else if (k === 'ins') o.ins = t.checked;
   else if (k === 'prods') o.prods = t.value ? [t.value] : [];
-  else if (k === 'amt') { o.amt = num(t.value); if (o.ins === null) { const cb = t.closest('tr').querySelector('[data-k=ins]'); cb.checked = insOn(o); } }
+  else if (k === 'amt') o.amt = num(t.value);
   else o[k] = t.value;
   renderPreview();
 });
@@ -377,7 +371,6 @@ $('#tbody').addEventListener('click', e => {
 });
 $('#all').addEventListener('change', e => { rows.forEach(o => o.on = e.target.checked); render(); });
 $('#optFrom').addEventListener('change', renderPreview);
-$('#optIns').addEventListener('input', render);
 $('#addRow').addEventListener('click', () => {
   rows.push({ on: true, order: '', name: '', tel: '', zip: '', addr: '', prods: [], amt: 0, ins: null, n: 1 });
   render();
