@@ -175,10 +175,11 @@ function parseSheet(aoa) {
     addrFull: pick(h, ['수령인주소(전체)', '수취인주소(전체)', '주소(전체)']),
     addr:  pick(h, ['수령인주소', '수취인주소', '받는분주소'], ['상세', '전체']),
     addr2: pick(h, ['수령인상세주소', '수취인상세주소', '받는분상세주소', '상세주소']),
-    prod:  pick(h, ['상품명', '주문상품명']),
-    opt:   pick(h, ['상품옵션', '옵션']),
+    prod:  pick(h, ['주문상품명(옵션포함)', '상품명(옵션포함)', '주문상품명', '상품명']),
+    opt:   pick(h, ['상품옵션', '옵션'], ['상품명']),
     qty:   pick(h, ['수량', '주문수량']),
-    amt:   pick(h, ['총결제금액', '실결제금액', '결제금액', '총주문금액', '주문금액']),
+    amt:   pick(h, ['총결제금액', '실결제금액', '결제금액']),
+    amt2:  pick(h, ['총주문금액', '주문금액']),
   };
   if (col.name < 0) throw new Error('"수령인" 열을 찾지 못했습니다. 엑셀 양식에 수령인 이름을 넣어 주세요.');
   if (col.addr < 0 && col.addrFull < 0) throw new Error('"수령인 주소" 열을 찾지 못했습니다.');
@@ -205,9 +206,9 @@ function parseSheet(aoa) {
     const o = {
       on: true, order, name,
       tel: g(r, col.mobile) || g(r, col.phone),
-      zip: g(r, col.zip).replace(/^\[|\]$/g, ''),
+      zip: (z => /^\d{1,4}$/.test(z) ? z.padStart(5, '0') : z)(g(r, col.zip).replace(/^\[|\]$/g, '')),
       addr, prods: prod ? [prod] : [],
-      amt: num(g(r, col.amt)), ins: null, n: 1,
+      amt: num(g(r, col.amt)) || num(g(r, col.amt2)), ins: null, n: 1,   // 무통장 입금 전에는 결제금액이 0이라 주문금액으로
     };
     byOrder.set(key, o); out.push(o);
   }
