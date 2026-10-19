@@ -122,8 +122,8 @@ textarea { min-height: 110px; resize: vertical; }
   var SB_URL = 'https://hsfnkregnbxoyoollxwp.supabase.co', SB_KEY = 'sb_publishable_X_oSmjFVZleVJRKSOeQ72Q_jhWNpk1e';
   var KEY = 'hanil-qna-admin', sess = null, rows = [], filter = 'pending';
   var $ = function (id) { return document.getElementById(id); };
-  function save() { try { sess ? sessionStorage.setItem(KEY, JSON.stringify(sess)) : sessionStorage.removeItem(KEY); } catch (e) {} }
-  try { sess = JSON.parse(sessionStorage.getItem(KEY) || 'null'); } catch (e) { sess = null; }
+  function save() { try { sess ? localStorage.setItem(KEY, JSON.stringify(sess)) : localStorage.removeItem(KEY); } catch (e) {} }
+  try { sess = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { sess = null; }
   var tt; function toast(m) { var t = $('toast'); t.textContent = m; t.hidden = false; clearTimeout(tt); tt = setTimeout(function () { t.hidden = true; }, 2200); }
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
   function when(t) { var d = new Date(t); return d.getFullYear() + '.' + (d.getMonth() + 1) + '.' + d.getDate() + ' ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'); }
@@ -136,7 +136,8 @@ textarea { min-height: 110px; resize: vertical; }
   function token() {
     if (!sess) return Promise.reject('login');
     if (Date.now() < sess.exp) return Promise.resolve(sess.at);
-    return auth({ refresh_token: sess.rt }, 'refresh_token').then(function () { return sess.at; });
+    // 오래되어 갱신이 안 되면 다시 로그인 화면으로
+    return auth({ refresh_token: sess.rt }, 'refresh_token').then(function () { return sess.at; }, function () { logout(); throw 'login'; });
   }
   function api(path, opt) {
     opt = opt || {};
