@@ -844,7 +844,8 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
       var v = { company: form.company.value.trim(), name: form.name.value.trim(), email: form.email.value.trim(), phone: form.phone.value.trim(), title: form.title.value.trim(), body: form.body.value.trim() };
       var K = KINDS[(form.querySelector('input[name=kind]:checked') || {}).value];
       if (form.website.value || Date.now() - opened < 4000) { msg.textContent = 'Please try again shortly.'; return; }
-      if (!v.company || !v.name || !v.email || v.title.length < 2 || v.body.length < 5) { msg.textContent = 'Please fill in all fields marked *.'; return; }
+      if (!v.company || !v.name || !v.email || v.title.length < 2) { msg.textContent = 'Please fill in all fields marked *.'; return; }
+      if (v.body.length < 5) { msg.textContent = 'Please write at least 5 characters in your message.'; return; }
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v.email)) { msg.textContent = 'Please check your email address.'; return; }
       if (!K) { msg.textContent = 'Please choose an inquiry type.'; return; }
       if (parseInt(form.cap.value, 10) !== capA) { msg.textContent = 'The anti-spam answer is incorrect.'; newCap(); return; }
