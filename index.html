@@ -682,8 +682,8 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
     <p class="lead">제품 구매, 견적, 규격 상담 내용을 남겨 주시면 확인 후 연락드립니다.</p>
     <fieldset class="kind"><legend>문의 종류 <i>*</i></legend>
       <div class="kinds">
-        <label><input type="radio" name="kind" value="product" required><span>제품 문의<small>규격·용도·샘플 상담</small></span></label>
-        <label><input type="radio" name="kind" value="buy"><span>구매 문의<small>주문·견적·납기</small></span></label>
+        <label><input type="radio" name="kind" value="buy" required><span>구매·견적 문의<small>주문·견적·납기</small></span></label>
+        <label><input type="radio" name="kind" value="other"><span>기타 문의<small>제품 규격·용도·샘플 등</small></span></label>
       </div>
     </fieldset>
     <div class="two">
@@ -842,7 +842,7 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
   (function () {
     var W3F_KEY = 'a600f14e-f5d5-42d3-ba46-03a2e027d42f';   // Web3Forms access key: 문의가 이 키에 등록된 이메일로 전송됨
     // 문의 종류별 받는 곳: key를 바꾸면 종류마다 다른 메일로 감
-    var KINDS = { product: { key: W3F_KEY, label: '제품 문의' }, buy: { key: W3F_KEY, label: '구매 문의' } };
+    var KINDS = { buy: { key: W3F_KEY, label: '구매·견적 문의' }, other: { key: W3F_KEY, label: '기타 문의' } };
     var dlg = document.getElementById('inq'), form = document.getElementById('inqForm'), done = document.getElementById('inqDone'), msg = document.getElementById('inqMsg');
     if (!dlg || typeof dlg.showModal !== 'function' || !W3F_KEY) return;
     var capA = 0, opened = 0;

@@ -669,8 +669,8 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
     <p class="lead">Send us your question about orders, quotes or sizes and we will get back to you. You may write in English or Korean.</p>
     <fieldset class="kind"><legend>Inquiry type <i>*</i></legend>
       <div class="kinds">
-        <label><input type="radio" name="kind" value="product" required><span>Product inquiry<small>Specs, uses, samples</small></span></label>
-        <label><input type="radio" name="kind" value="buy"><span>Purchase inquiry<small>Orders, quotes, lead time</small></span></label>
+        <label><input type="radio" name="kind" value="buy" required><span>Purchase &amp; quote<small>Orders, quotes, lead time</small></span></label>
+        <label><input type="radio" name="kind" value="other"><span>Other inquiry<small>Specs, uses, samples, etc.</small></span></label>
       </div>
     </fieldset>
     <div class="two">
@@ -829,7 +829,7 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
   (function () {
     var W3F_KEY = 'a600f14e-f5d5-42d3-ba46-03a2e027d42f';   // Web3Forms access key: 문의가 이 키에 등록된 이메일로 전송됨
     // 문의 종류별 받는 곳: key를 바꾸면 종류마다 다른 메일로 감
-    var KINDS = { product: { key: W3F_KEY, label: '제품 문의' }, buy: { key: W3F_KEY, label: '구매 문의' } };
+    var KINDS = { buy: { key: W3F_KEY, label: '구매·견적 문의' }, other: { key: W3F_KEY, label: '기타 문의' } };
     var dlg = document.getElementById('inq'), form = document.getElementById('inqForm'), done = document.getElementById('inqDone'), msg = document.getElementById('inqMsg');
     if (!dlg || typeof dlg.showModal !== 'function' || !W3F_KEY) return;
     var capA = 0, opened = 0;
