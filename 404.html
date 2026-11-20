@@ -16,7 +16,7 @@
     var p = location.pathname.toLowerCase(), base = p.indexOf('/en') === 0 ? '/en/' : '/';
     var d = decodeURIComponent(p);
     var hash = base === '/' && /19|notice|공지/.test(d) ? '#notice'
-      : /qna|board|18|notice|문의|공지/.test(d) ? '#qna'
+      : /qna|board|18|notice|문의|공지/.test(d) ? '#contact'
       : /product|제품/.test(d) ? '#products'
       : /company|about|회사|overview/.test(d) ? '#about' : '';
     location.replace(base + hash);

@@ -408,7 +408,6 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
       <a href="#uses">Applications</a>
       <a href="#about">About</a>
       <a href="#history">History</a>
-      <a href="#qna">Q&amp;A</a>
       <a href="#contact">Location</a>
       <a class="shop" href="https://hanilgoldleaf.cafe24.com/" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9h14l-1.4 9.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8L5 9Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 9 12 4l3 5M3.5 9h17M10 12.5v4M14 12.5v4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>Online Shop</a>
       <a class="call" href="#contact" data-inq>Contact Us</a>
@@ -583,39 +582,6 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
     </div>
   </section>
 
-  <section class="sec" id="qna" aria-labelledby="qnaTitle">
-    <div class="wrap">
-      <div class="qna-top">
-        <div class="sec-head">
-          <span class="eyebrow">Q&amp;A</span>
-          <h2 id="qnaTitle">Questions &amp; answers</h2>
-          <p>Ask about our products, sizes or orders. Questions are posted together with our answer after review.</p>
-        </div>
-        <button class="qbtn solid" type="button" id="qWriteBtn" aria-expanded="false" aria-controls="qForm">Ask a question</button>
-      </div>
-
-      <form class="qform" id="qForm" hidden novalidate>
-        <div class="two">
-          <label>Name <input type="text" name="name" maxlength="20" required autocomplete="name"></label>
-          <label>Phone or email <small>Optional · never shown publicly</small><input type="tel" name="contact" maxlength="60" autocomplete="tel"></label>
-        </div>
-        <label>Subject <input type="text" name="title" maxlength="80" required></label>
-        <label>Question <textarea name="body" maxlength="2000" required></textarea></label>
-        <div class="two">
-          <label>Password <small>4+ characters · to open a private post</small><input type="password" name="pw" minlength="4" maxlength="30" required autocomplete="new-password"></label>
-          <label>Anti-spam check <small id="qCapQ"></small><input type="text" name="cap" inputmode="numeric" maxlength="3" required></label>
-        </div>
-        <label class="chk"><input type="checkbox" name="secret"> Private post (only the subject is shown; the question and answer open with your password)</label>
-        <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
-        <p class="note">Posts with links, advertising or adult content are rejected. All posts are reviewed before they appear.</p>
-        <div class="act"><button class="qbtn solid" type="submit">Submit</button><button class="qbtn" type="button" id="qCancel">Cancel</button></div>
-        <p class="qmsg" id="qMsg" role="status"></p>
-      </form>
-
-      <ul class="qlist" id="qList" aria-live="polite"><li class="qempty">Loading questions…</li></ul>
-      <div class="qmore"><button class="qbtn" type="button" id="qMore" hidden>Show more</button></div>
-    </div>
-  </section>
 
   <section class="contact sec" id="contact" aria-labelledby="contactTitle">
     <div class="wrap">
@@ -658,7 +624,7 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
 <footer>
   <div class="wrap">
     <span>Han Il Gold Leaf Co. · President Jung · Copyright © 2026 Han Il Gold Leaf. All rights reserved.</span>
-    <nav aria-label="Footer menu"><a href="#products">Products</a><a href="#about">About</a><a href="#qna">Q&amp;A</a><a href="#contact" data-inq>Contact Us</a><a href="#contact">Location</a><a href="#home">Back to top</a><a href="../" lang="ko">한국어</a></nav>
+    <nav aria-label="Footer menu"><a href="#products">Products</a><a href="#about">About</a><a href="#contact" data-inq>Contact Us</a><a href="#contact">Location</a><a href="#home">Back to top</a><a href="../" lang="ko">한국어</a></nav>
   </div>
 </footer>
 
@@ -712,87 +678,6 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
     a.addEventListener('click', function () { top.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); });
   });
 
-  // ---------- Q&A (Supabase) ----------
-  (function () {
-    var SB_URL = 'https://hsfnkregnbxoyoollxwp.supabase.co', SB_KEY = 'sb_publishable_X_oSmjFVZleVJRKSOeQ72Q_jhWNpk1e';   // Supabase 프로젝트 주소와 공개 키
-    var list = document.getElementById('qList'), more = document.getElementById('qMore');
-    var form = document.getElementById('qForm'), wbtn = document.getElementById('qWriteBtn'), msg = document.getElementById('qMsg');
-    var PAGE = 10, offset = 0, capA = 0;
-    function hdr(extra) {
-      var h = { apikey: SB_KEY, 'Content-Type': 'application/json' };
-      if (SB_KEY.indexOf('eyJ') === 0) h.Authorization = 'Bearer ' + SB_KEY;
-      for (var k in extra) h[k] = extra[k];
-      return h;
-    }
-    function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
-    function ymd(t) { var d = new Date(t); return d.getFullYear() + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + String(d.getDate()).padStart(2, '0'); }
-    function mask(n) { n = String(n || ''); return n.length <= 1 ? n : n[0] + '*'.repeat(Math.min(n.length - 1, 3)); }
-    function answerBox(a) { var d = el('div', 'a'); d.appendChild(el('b', null, 'Answer from Han Il')); d.appendChild(document.createTextNode(a)); return d; }
-    function item(q) {
-      var li = el('li'), head = el('button', 'qhead'), body = el('div', 'qbody');
-      head.type = 'button'; head.setAttribute('aria-expanded', 'false'); body.hidden = true;
-      head.appendChild(el('span', 't', (q.is_secret ? '🔒 ' : '') + q.title));
-      head.appendChild(el('span', 'm', mask(q.name) + ' · ' + ymd(q.created_at)));
-      head.appendChild(el('span', 'qtag' + (q.answered_at ? ' done' : ''), q.answered_at ? 'Answered' : 'Pending'));
-      if (q.is_secret) {
-        var f = el('form', 'qlock'), pw = el('input'), ok = el('button', 'qbtn', 'Open'), m = el('p', 'qmsg');
-        pw.type = 'password'; pw.placeholder = 'Password'; pw.setAttribute('aria-label', 'Password'); ok.type = 'submit';
-        f.appendChild(pw); f.appendChild(ok); body.appendChild(f); body.appendChild(m);
-        f.addEventListener('submit', function (e) {
-          e.preventDefault(); m.textContent = 'Checking…';
-          fetch(SB_URL + '/rest/v1/rpc/qna_open', { method: 'POST', headers: hdr(), body: JSON.stringify({ p_id: q.id, p_pw: pw.value }) })
-            .then(function (r) { return r.json(); })
-            .then(function (rows) {
-              if (!rows || !rows.length) { m.textContent = 'Wrong password.'; return; }
-              body.textContent = ''; body.appendChild(el('p', 'q', rows[0].body));
-              if (rows[0].answer) body.appendChild(answerBox(rows[0].answer));
-            }).catch(function () { m.textContent = 'Please try again shortly.'; });
-        });
-      } else {
-        body.appendChild(el('p', 'q', q.body));
-        if (q.answer) body.appendChild(answerBox(q.answer));
-      }
-      head.addEventListener('click', function () { body.hidden = !body.hidden; head.setAttribute('aria-expanded', body.hidden ? 'false' : 'true'); });
-      li.appendChild(head); li.appendChild(body); return li;
-    }
-    function load() {
-      if (!SB_URL) { list.innerHTML = ''; list.appendChild(el('li', 'qempty', 'The board is being prepared. Please call +82 2-733-8788.')); wbtn.hidden = true; return; }
-      fetch(SB_URL + '/rest/v1/qna_public?select=*&order=created_at.desc&limit=' + (PAGE + 1) + '&offset=' + offset, { headers: hdr() })
-        .then(function (r) { if (!r.ok) throw r; return r.json(); })
-        .then(function (rows) {
-          if (offset === 0) list.innerHTML = '';
-          if (!rows.length && offset === 0) list.appendChild(el('li', 'qempty', 'No questions yet. Be the first to ask.'));
-          rows.slice(0, PAGE).forEach(function (q) { list.appendChild(item(q)); });
-          more.hidden = rows.length <= PAGE; offset += PAGE;
-        }).catch(function () { list.innerHTML = ''; list.appendChild(el('li', 'qempty', 'Could not load questions. Please try again shortly.')); });
-    }
-    function newCap() { var a = 2 + Math.floor(Math.random() * 8), b = 1 + Math.floor(Math.random() * 9); capA = a + b; document.getElementById('qCapQ').textContent = a + ' + ' + b + ' = ?'; form.cap.value = ''; }
-    var BAD = /(https?:\/\/|www\.|\.(com|net|kr|xyz|top|io|me|ly)(\/|\s|$)|bit\.ly|t\.me|카지노|바카라|토토|슬롯|도박|먹튀|성인|야동|섹스|섹시|조건만남|출장안마|오피걸|룸살롱|대출|코인|리딩방|텔레그램|비아그라|casino|porn|sex|viagra|loan|crypto)/i;
-    var opened = 0;
-    function toggle(open) { form.hidden = !open; wbtn.setAttribute('aria-expanded', open ? 'true' : 'false'); if (open) { newCap(); opened = Date.now(); msg.textContent = ''; form.name.focus(); } }
-    wbtn.addEventListener('click', function () { toggle(form.hidden); });
-    document.getElementById('qCancel').addEventListener('click', function () { toggle(false); });
-    more.addEventListener('click', load);
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var v = { name: form.name.value.trim(), contact: form.contact.value.trim(), title: form.title.value.trim(), body: form.body.value.trim(), pw: form.pw.value };
-      if (form.website.value || Date.now() - opened < 4000) { msg.textContent = 'Please try again shortly.'; return; }
-      if (!v.name || v.title.length < 2 || v.body.length < 5) { msg.textContent = 'Please enter your name, subject and question.'; return; }
-      if (v.pw.length < 4) { msg.textContent = 'Please enter a password of 4 or more characters.'; return; }
-      if (parseInt(form.cap.value, 10) !== capA) { msg.textContent = 'The anti-spam answer is incorrect.'; newCap(); return; }
-      if (BAD.test([v.name, v.title, v.body].join(' '))) { msg.textContent = 'Links and advertising are not allowed.'; return; }
-      msg.textContent = 'Submitting…';
-      fetch(SB_URL + '/rest/v1/qna', { method: 'POST', headers: hdr({ Prefer: 'return=minimal' }),
-        body: JSON.stringify({ name: v.name, contact: v.contact || null, title: v.title, body: v.body, is_secret: form.secret.checked, pw_hash: v.pw }) })
-        .then(function (r) {
-          if (!r.ok) return r.json().then(function (j) { throw new Error(j && j.message || ''); });
-          form.reset(); form.hidden = true; wbtn.setAttribute('aria-expanded', 'false');
-          show('Submitted. It will appear with our answer after review.');
-        })
-        .catch(function (err) { msg.textContent = (err && /링크/.test(err.message)) ? 'Links are not allowed.' : (err && /단어/.test(err.message)) ? 'Your post contains words that are not allowed.' : (err && /잠시/.test(err.message)) ? 'Too many posts. Please try again in a minute.' : 'Could not submit. Please try again shortly.'; newCap(); });
-    });
-    load();
-  })();
 
   // ---------- 공지사항 (Supabase, 관리자만 작성) ----------
   (function () {
